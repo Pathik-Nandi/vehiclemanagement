@@ -21,35 +21,35 @@ public class VehicleModelController {
         return "This is home page";
     }
 
-    //getting All assessment record by get method
+    //getting All VehicleModel record by get method
     @GetMapping("/getVehicleModel")
     public List<VehicleModel> getVehicleModel()
     {
         return vehicleModelService.getVehicleModel();
     }
 
-    //getting particular assessment record by assessmentId
+    //getting particular VehicleModel record by assessmentId
     @GetMapping("/getVehicleModel/{modelId}")
     public VehicleModel getVehicleModelById(@PathVariable Long modelId)
     {
         return this.vehicleModelService.getVehicleModelById(modelId);
     }
 
-    //Adding Assessment by Post method
+    //Adding VehicleModel by Post method
     @PostMapping("/addVehicleModel")
     public VehicleModel addVehicleModel(@RequestBody VehicleModel vehicleModel)
     {
         return this.vehicleModelService.addVehicleModel(vehicleModel);
     }
 
-    //Updating Assessment record by put method
+    //Updating VehicleModel record by put method
     @PutMapping("/updateVehicleModel")
     public VehicleModel updateVehicleModel(@RequestBody VehicleModel vehicleModel)
     {
         return this.vehicleModelService.updateVehicleModel(vehicleModel);
     }
 
-    //Deleting Assessment record by delete method
+    //Deleting VehicleModel record by delete method
     @DeleteMapping("/deleteVehicleModel/{modelId}")
     public ResponseEntity<HttpStatus> deleteVehicleModel(@PathVariable String modelId)
     {
