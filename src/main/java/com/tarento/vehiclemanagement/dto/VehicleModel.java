@@ -3,7 +3,7 @@ package com.tarento.vehiclemanagement.dto;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 @Entity
-public class VehicleModel {
+public class VehicleModel extends Auditable{
     @Id
     private long modelId;
     private String modelName;
