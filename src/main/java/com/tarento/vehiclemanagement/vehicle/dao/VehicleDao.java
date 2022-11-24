@@ -7,11 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VehicleDao extends JpaRepository <Vehicle,Long>{
+public interface VehicleDao extends JpaRepository <Vehicle,Long> {
+    public List<Vehicle> findById(long id);
 
-
-//   public long addVehicle(Vehicle vehicle) ;
-
-//    public List<Vehicle> getByVehicleId(long v_id) ;
-
+    public void deleteById(long id);
 }
+
