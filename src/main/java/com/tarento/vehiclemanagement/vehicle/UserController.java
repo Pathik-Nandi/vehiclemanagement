@@ -14,9 +14,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getUser/{uId}")
-    public Optional<User> getUser(@PathVariable int uId){
-        return userService.getUser(uId);
+    @GetMapping("/getUser/{userId}")
+    public Optional<User> getUser(@PathVariable int userId){
+        return userService.getUser(userId);
     }
 
 
@@ -25,23 +25,23 @@ public class UserController {
 //        return userService.findByUName(uName);
 //    }
 //
-    @GetMapping("/getUserByName/{uName}")
-    public User getUserByName(@PathVariable String uName){
-        return userService.getUserByName(uName);
+    @GetMapping("/getUserByName/{userName}")
+    public List<User> getUserByName(@PathVariable String userName){
+        return userService.getUserByName(userName);
     }
 
     @PostMapping("/addUser")
-    public int addUser(@RequestBody User user){
+    public String addUser(@RequestBody User user){
         return userService.addUser(user);
     }
 
-    @DeleteMapping("/deleteUser/{uId}")
-        public int deleteUser(@RequestBody int uId){
-            return userService.deleteUser(uId);
+    @DeleteMapping("/deleteUser/{userId}")
+        public long deleteUser(@RequestBody long userId){
+            return userService.deleteUser(userId);
         }
 
-    @PutMapping("/updateUser/{uId}")
-    public int updateUser(@RequestBody User user,@PathVariable int uId){
-        return userService.updateUser(user,uId);
+    @PutMapping("/updateUser/{userId}")
+    public int updateUser(@RequestBody User user,@PathVariable int userId){
+        return userService.updateUser(user,userId);
     }
 }

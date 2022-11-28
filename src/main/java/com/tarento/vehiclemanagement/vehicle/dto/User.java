@@ -11,8 +11,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int uId;
-    private String uName;
+    private long userId;
+    private String userName;
     private Date createdAt;
     private String createdBy;
     private Date updatedAt;
@@ -21,28 +21,30 @@ public class User {
 
     }
 
-    public User(int uId, String uName, Date createdAt, String createdBy, Date updatedAt) {
-        this.uId = uId;
-        this.uName = uName;
+
+
+    public User(int userId, String userName, Date createdAt, String createdBy, Date updatedAt) {
+        this.userId = userId;
+        this.userName = userName;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.updatedAt = updatedAt;
     }
 
-    public int getuId() {
-        return uId;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setuId(int uId) {
-        this.uId = uId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getuName() {
-        return uName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setuName(String uName) {
-        this.uName = uName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Date getCreatedAt() {
@@ -72,8 +74,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "uId=" + uId +
-                ", uName='" + uName + '\'' +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
                 ", createdAt=" + createdAt +
                 ", createdBy='" + createdBy + '\'' +
                 ", updatedAt=" + updatedAt +

@@ -5,6 +5,7 @@ import com.tarento.vehiclemanagement.vehicle.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -15,13 +16,19 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public int addUser(User user) {
-        return userDao.save(user).getuId();
+    public String addUser(User user) {
+        String userName=user.getUserName();
+        List usernameList=getUserByName(userName);
+        if (usernameList.size()>0){
+            return "Already";
+        }
+        userDao.save(user);
+        return "Added";
     }
 
     @Override
-    public Optional<User> getUser(int uId) {
-        return userDao.findById(uId);
+    public Optional<User> getUser(long userId) {
+        return userDao.findById(userId);
     }
 
 //    @Override
@@ -31,19 +38,19 @@ public class UserServiceImpl implements UserService{
 
 //
     @Override
-    public User getUserByName(String uName) {
-        return userDao.findByuName(uName);
+    public List<User> getUserByName(String userName) {
+        return userDao.findByuserName(userName);
     }
 
 
     @Override
-    public int deleteUser(int uId) {
-         userDao.deleteById(uId);
-        return uId;
+    public long deleteUser(long userId) {
+         userDao.deleteById(userId);
+        return userId;
     }
 
     @Override
-    public int updateUser(User user, int uId) {
+    public int updateUser(User user, int userId) {
         userDao.save(user);
         return 1;
     }
