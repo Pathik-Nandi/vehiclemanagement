@@ -9,18 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/vehicle")
 public class VehicleController {
 
     @Autowired
     private VehicleService vehicleService;
     @PostMapping("/addVehicle")
-    public long addVehicle(@RequestBody Vehicle vehicle) {return  vehicleService.addVehicle(vehicle);}
+    public String addVehicle(@RequestBody Vehicle vehicle) {return  vehicleService.addVehicle(vehicle);}
 
-    @GetMapping("/getById/{id}")
-    public List<Vehicle> getById(@PathVariable long id){return vehicleService.getById(id);}
+    @GetMapping("/getById/{vehiceId}")
+    public List<Vehicle> getById(@PathVariable long vehicleId){return vehicleService.getById(vehicleId);}
 
-    @DeleteMapping("/deleteById/{id}")
-    public void deleteById(@PathVariable long id){vehicleService.deleteById(id);}
+    @DeleteMapping("/deleteById/{vehiceId}")
+    public void deleteById(@PathVariable long vehicleId){vehicleService.deleteById(vehicleId);}
 
 
 }

@@ -3,13 +3,14 @@ package com.tarento.vehiclemanagement.vehicle.service;
 import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
 
 import java.util.List;
-import java.util.Optional;
 
 
 public interface VehicleService {
-  public long addVehicle(Vehicle vehicle);
+  public String addVehicle(Vehicle vehicle);
 
- public List<Vehicle> getById(long id);
+ public List<Vehicle> getById(long vehicleId);
 
-   public void deleteById(long id);
+   public void deleteById(long vehicleId);
+
+   public  List<Vehicle> getAllVehicle(long chassisNumber);
 }

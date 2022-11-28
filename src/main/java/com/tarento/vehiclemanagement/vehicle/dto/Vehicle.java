@@ -6,51 +6,81 @@ import java.util.Date;
 @Entity
 public class Vehicle {
     @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String v_name;
-    private String v_type;
-    private long m_id;
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long vehicleId;
+    private long chassisNumber;
+    private String vehicleName;
+    private String vehicleType;
+    private long modelId;
+    @Column(updatable = false)
+    private  Date Created_at;
+    private Date Updated_at;
     public Vehicle() {
     }
 
-    public Vehicle(long id, String v_name, String v_type, long m_id) {
-        this.id = id;
-        this.v_name = v_name;
-        this.v_type = v_type;
-        this.m_id = m_id;
+    public Vehicle(long vehicleId, long chassisNumber, String vehicleName, String vehicleType, long modelId, Date created_at, Date updated_at) {
+        this.vehicleId = vehicleId;
+        this.chassisNumber = chassisNumber;
+        this.vehicleName = vehicleName;
+        this.vehicleType = vehicleType;
+        this.modelId = modelId;
+        Created_at = created_at;
+        Updated_at = updated_at;
     }
 
-    public long getId() {
-        return id;
+    public long getVehicleId() {
+        return vehicleId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setVehicleId(long vehicleId) {
+        this.vehicleId = vehicleId;
     }
 
-    public String getV_name() {
-        return v_name;
+    public long getChassisNumber() {
+        return chassisNumber;
     }
 
-    public void setV_name(String v_name) {
-        this.v_name = v_name;
+    public void setChassisNumber(long chassisNumber) {
+        this.chassisNumber = chassisNumber;
     }
 
-    public String getV_type() {
-        return v_type;
+    public String getVehicleName() {
+        return vehicleName;
     }
 
-    public void setV_type(String v_type) {
-        this.v_type = v_type;
+    public void setVehicleName(String vehicleName) {
+        this.vehicleName = vehicleName;
     }
 
-    public long getM_id() {
-        return m_id;
+    public String getVehicleType() {
+        return vehicleType;
     }
 
-    public void setM_id(long m_id) {
-        this.m_id = m_id;
+    public void setVehicleType(String vehicleType) {
+        this.vehicleType = vehicleType;
+    }
+
+    public long getModelId() {
+        return modelId;
+    }
+
+    public void setModelId(long modelId) {
+        this.modelId = modelId;
+    }
+
+    public Date getCreated_at() {
+        return Created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        Created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return Updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        Updated_at = updated_at;
     }
 }
