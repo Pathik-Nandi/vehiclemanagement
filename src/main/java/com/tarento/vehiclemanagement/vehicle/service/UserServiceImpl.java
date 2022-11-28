@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
         String userName=user.getUserName();
         List usernameList=getUserByName(userName);
         if (usernameList.size()>0){
-            return "Already";
+            return "User already exist";
         }
         userDao.save(user);
         return "Added";
