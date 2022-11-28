@@ -20,13 +20,6 @@ public class VehicleSpecController {
         return "This is Home Page";
     }
 
-    //getting All VehicleSpec record by get method
-    @GetMapping("/getVehicleSpec")
-    public List<VehicleSpec> getVehicleSpec()
-    {
-        return VehicleSpecService.getVehicleSpec();
-    }
-
     //getting particular VehicleSpec record by assessmentId
     @GetMapping("/getVehicleSpec/{specId}")
     public VehicleSpec getVehicleSpecById(@PathVariable Long specId)
