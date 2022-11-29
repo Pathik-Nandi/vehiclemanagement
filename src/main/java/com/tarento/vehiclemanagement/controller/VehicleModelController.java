@@ -6,10 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
 
+import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
+@RequestMapping("/vehicle")
 public class VehicleModelController {
     @Autowired
     private VehicleModelService vehicleModelService;
@@ -22,7 +26,7 @@ public class VehicleModelController {
     }
 
     //getting All VehicleModel record by get method
-    @GetMapping("/getVehicleModel")
+    @GetMapping("/getAllVehicleModel")
     public List<VehicleModel> getVehicleModel()
     {
         return vehicleModelService.getVehicleModel();
@@ -37,8 +41,7 @@ public class VehicleModelController {
 
     //Adding VehicleModel by Post method
     @PostMapping("/addVehicleModel")
-    public VehicleModel addVehicleModel(@RequestBody VehicleModel vehicleModel)
-    {
+    public String addVehicleModel(@Valid  @RequestBody VehicleModel vehicleModel) throws IOException, SAXException {
         return this.vehicleModelService.addVehicleModel(vehicleModel);
     }
 

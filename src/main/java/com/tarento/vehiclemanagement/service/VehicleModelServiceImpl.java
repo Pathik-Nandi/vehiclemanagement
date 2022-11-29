@@ -4,11 +4,22 @@ import com.tarento.vehiclemanagement.data.VehicleModelDao;
 import com.tarento.vehiclemanagement.dto.VehicleModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+//import org.springframework.validation.Validator;
+import org.xml.sax.SAXException;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Validator;
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
+
+
 @Component
 public class VehicleModelServiceImpl implements VehicleModelService{
 
+    @Autowired
+    private Validator validator;
     @Autowired
     private VehicleModelDao vehicleModelDao;
     @Override
@@ -22,9 +33,17 @@ public class VehicleModelServiceImpl implements VehicleModelService{
     }
 
     @Override
-    public VehicleModel addVehicleModel(VehicleModel vehicleModel) {
+    public String addVehicleModel(VehicleModel vehicleModel) throws IOException, SAXException {
+        Set<ConstraintViolation<VehicleModel>> violations = validator.validate(vehicleModel);
+        if (!violations.isEmpty()){
+            StringBuilder sb = new StringBuilder();
+            for (ConstraintViolation<VehicleModel> constraintViolation : violations){
+                sb.append(constraintViolation.getMessage());
+            }
+            throw new ConstraintViolationException("Error occurred"+sb.toString(), violations);
+        }
         vehicleModelDao.save(vehicleModel);
-        return vehicleModel;
+        return "VehicleModel for " + vehicleModel.getModelName() + " Added!";
     }
 
     @Override

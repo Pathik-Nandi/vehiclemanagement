@@ -1,16 +1,25 @@
 package com.tarento.vehiclemanagement.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.util.Date;
+import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 
+import javax.persistence.*;
+import javax.validation.constraints.*;
+import javax.xml.transform.Source;
+import java.util.Date;
+ //extends Auditable implements Source
 @Entity
 public class VehicleModel extends Auditable{
     @Id
     private long modelId;
-    private String modelName;
+    @NotEmpty(message = "Name must not be blank")
+    private String modelName; //no integer value, should not empty,
+     @Min(1)
+     @Max(1000)
     private long modelNumber;
+    @NotEmpty(message = "manufacturer must not be blank")
     private String manufacturer;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_of_manufacture", nullable = false, updatable = false)
     private Date dateOfManufacture;
 
     public VehicleModel() {
@@ -65,6 +74,7 @@ public class VehicleModel extends Auditable{
     }
 
     @Override
+    @JavaDispatcher.Container
     public String toString() {
         return "VehicleModel{" +
                 "modelId=" + modelId +
@@ -74,4 +84,5 @@ public class VehicleModel extends Auditable{
                 ", dateOfManufacture=" + dateOfManufacture +
                 '}';
     }
+
 }
