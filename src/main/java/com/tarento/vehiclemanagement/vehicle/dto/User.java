@@ -13,29 +13,33 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
     private String userName;
+
+    private Long aadharNum;
     private Date createdAt;
     private String createdBy;
     private Date updatedAt;
 
-    public User(){
+    private String updatedBy;
+
+    public User() {
 
     }
 
-
-
-    public User(int userId, String userName, Date createdAt, String createdBy, Date updatedAt) {
+    public User(long userId, String userName, Long aadharNum, Date createdAt, String createdBy, Date updatedAt, String updatedBy) {
         this.userId = userId;
         this.userName = userName;
+        this.aadharNum = aadharNum;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.updatedAt = updatedAt;
+        this.updatedBy = updatedBy;
     }
 
     public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
@@ -45,6 +49,14 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public Long getAadharNum() {
+        return aadharNum;
+    }
+
+    public void setAadharNum(Long aadharNum) {
+        this.aadharNum = aadharNum;
     }
 
     public Date getCreatedAt() {
@@ -71,14 +83,24 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
                 ", userName='" + userName + '\'' +
+                ", aadharNum=" + aadharNum +
                 ", createdAt=" + createdAt +
                 ", createdBy='" + createdBy + '\'' +
                 ", updatedAt=" + updatedAt +
+                ", updatedBy='" + updatedBy + '\'' +
                 '}';
     }
 }

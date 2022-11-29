@@ -8,39 +8,34 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@RequestMapping("/User")
 @RestController
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/getUser/{userId}")
+    @GetMapping("/{userId}")
     public Optional<User> getUser(@PathVariable int userId){
         return userService.getUser(userId);
     }
 
-
-//    @GetMapping("/findByUName/{uName}")
-//    public List<User> findByUName(@PathVariable String uName){
-//        return userService.findByUName(uName);
-//    }
-//
-    @GetMapping("/getUserByName/{userName}")
+    @GetMapping("/{userName}")
     public List<User> getUserByName(@PathVariable String userName){
         return userService.getUserByName(userName);
     }
 
     @PostMapping("/addUser")
-    public String addUser(@RequestBody User user){
+    public User addUser(@RequestBody User user){
         return userService.addUser(user);
     }
 
-    @DeleteMapping("/deleteUser/{userId}")
+    @DeleteMapping("/{userId}")
         public long deleteUser(@RequestBody long userId){
             return userService.deleteUser(userId);
         }
 
-    @PutMapping("/updateUser/{userId}")
+    @PutMapping("/{userId}")
     public int updateUser(@RequestBody User user,@PathVariable int userId){
         return userService.updateUser(user,userId);
     }
