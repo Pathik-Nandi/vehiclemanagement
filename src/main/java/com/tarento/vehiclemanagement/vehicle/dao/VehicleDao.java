@@ -9,9 +9,8 @@ import java.util.List;
 
 @Repository
 public interface VehicleDao extends JpaRepository <Vehicle,Long> {
-    public List<Vehicle> findById(long vehicleId);
+    public  List<Vehicle> findBychassisNumber(long chassisNumber);
 
 
-    public void deleteById(long vehicleId);
 }
 

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/vehicle")
@@ -15,13 +16,17 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
     @PostMapping("/addVehicle")
-    public String addVehicle(@RequestBody Vehicle vehicle) {return  vehicleService.addVehicle(vehicle);}
+    public long addVehicle(@RequestBody Vehicle vehicle) {return  vehicleService.addVehicle(vehicle);}
 
-    @GetMapping("/getById/{vehiceId}")
-    public List<Vehicle> getById(@PathVariable long vehicleId){return vehicleService.getById(vehicleId);}
-
-    @DeleteMapping("/deleteById/{vehiceId}")
-    public void deleteById(@PathVariable long vehicleId){vehicleService.deleteById(vehicleId);}
+    @GetMapping("/{vehiceId}")
+    public Optional<Vehicle> fetchVehicle(@PathVariable long vehicleId){return vehicleService.fetchVehicle(vehicleId);}
 
 
+    @DeleteMapping("/{vehicleId}")
+    public void deleteVehicle(@PathVariable long vehicleId){vehicleService.deleteVehicle(vehicleId);}
+
+    @GetMapping("/findByChassisNumber/{chassisNumber}")
+    public  List<Vehicle> findBychassisNumber(@PathVariable long chassisNumber){
+        return vehicleService.findBychassisNumber(chassisNumber);
+    }
 }

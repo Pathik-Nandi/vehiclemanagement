@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class VehicleServiceImpl implements VehicleService{
@@ -14,39 +15,28 @@ public class VehicleServiceImpl implements VehicleService{
     private VehicleDao vehicleDao;
 
     @Override
-    public String addVehicle(Vehicle vehicle) {
-        long chassisnumber = vehicle.getChassisNumber();
-        List<Vehicle> chassislist = getAllVehicle(chassisnumber);
-        for (int i=0; i<chassislist.size();i++) {
-            if (chassislist.get(i).getChassisNumber() == chassisnumber) {
-                return "chassis number already exist";
-            } else {
-                vehicleDao.save(vehicle).getVehicleId();
-            }
-
+    public long addVehicle(Vehicle vehicle) {
+        List<Vehicle> vehicleList = findBychassisNumber(vehicle.getChassisNumber());
+        if (vehicleList.size() > 0) {
+            throw new RuntimeException("chassis number already exist");
         }
-        return "added succesfully";
+        return vehicleDao.save(vehicle).getVehicleId();
     }
 
-
     @Override
-    public List<Vehicle> getById(long vehicleId) {
-        return vehicleDao.findById(vehicleId);
-    }
-
-
-
-
-    @Override
-    public void deleteById(long vehicleId) {
+    public void deleteVehicle(long vehicleId) {
         vehicleDao.deleteById(vehicleId);
 
     }
 
     @Override
-    public List<Vehicle> getAllVehicle(long chassisNumber) {
-        return vehicleDao.findAll();
+    public List<Vehicle> findBychassisNumber(long chassisNumber) {
+        return vehicleDao.findBychassisNumber(chassisNumber);
     }
 
+    @Override
+    public Optional<Vehicle> fetchVehicle(long vehicleId) {
+        return vehicleDao.findById(vehicleId);
+    }
 
 }
