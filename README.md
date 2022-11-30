@@ -20,7 +20,7 @@ Download and add following requirement in project buiLd path
 
 ## Steps
 
-Install MySql and Setup Schema(employee_db)
+Install MySql and Setup Schema(vehicleManagement)
 ```
 <dependency>
 	<groupId>mysql</groupId>
