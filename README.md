@@ -55,6 +55,7 @@ vehicle_id - PrimaryKey
 chassis_number
 model_id
 vehicle_name
+vehicle_type
 created_at
 updated_at
 ```
