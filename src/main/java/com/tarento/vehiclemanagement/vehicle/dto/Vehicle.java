@@ -2,7 +2,6 @@ package com.tarento.vehiclemanagement.vehicle.dto;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 public class Vehicle {
