@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
 
-import java.util.List;
+import javax.validation.Valid;
+import java.io.IOException;
 
 @RestController
 public class VehicleSpecController {
@@ -24,13 +26,12 @@ public class VehicleSpecController {
     @GetMapping("/getVehicleSpec/{specId}")
     public VehicleSpec getVehicleSpecById(@PathVariable Long specId)
     {
-        return this.vehicleSpecService.getVehicleSpecById(specId);
+        return this.vehicleSpecService.getVehicleModelById(specId);
     }
 
     //Adding VehicleSpec by Post method
     @PostMapping("/addVehicleSpec")
-    public VehicleSpec addVehicleSpec(@RequestBody VehicleSpec vehicleSpec)
-    {
+    public String addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) throws IOException, SAXException {
         return this.vehicleSpecService.addVehicleSpec(vehicleSpec);
     }
 

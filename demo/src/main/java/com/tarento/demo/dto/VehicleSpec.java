@@ -1,16 +1,29 @@
 package com.tarento.demo.dto;
 
+import net.bytebuddy.utility.dispatcher.JavaDispatcher;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.xml.transform.Source;
 
 @Entity
-public class VehicleSpec extends Auditable {
+public class VehicleSpec extends Auditable implements Source {
     @Id
     private long specId;
+    @NotEmpty(message = "vRPM must not be blank")
     private long vRPM;
+    @NotEmpty(message = "fuelCap must not be blank")
     private String fuelCap;
+    @NotEmpty(message = "engineCap must not be blank")
     private String engineCap;
+    @Min(1)
+    @Max(99)
     private String mileage;
+    @Min(101)
+    @Max(999)
     private  long modelId;
 
     public VehicleSpec(){
@@ -75,6 +88,7 @@ public class VehicleSpec extends Auditable {
     }
 
     @Override
+    @JavaDispatcher.Container
     public String toString() {
         return "VehicleSpec{" +
                 "specId=" + specId +
@@ -86,4 +100,17 @@ public class VehicleSpec extends Auditable {
                 '}';
     }
 
+    @Override
+    public void setSystemId(String systemId) {
+    }
+
+    @Override
+    public String getSystemId() {
+        return null;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return Source.super.isEmpty();
+    }
 }
