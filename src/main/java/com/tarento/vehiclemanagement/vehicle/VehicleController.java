@@ -1,10 +1,13 @@
 package com.tarento.vehiclemanagement.vehicle;
 
 
+import com.tarento.vehiclemanagement.vehicle.dto.APIResponse;
+import com.tarento.vehiclemanagement.vehicle.dto.KeyValuePair;
 import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
 import com.tarento.vehiclemanagement.vehicle.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,7 +17,12 @@ public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
     @PostMapping("/add")
-    public long addVehicle(@RequestBody Vehicle vehicle) {return  vehicleService.addVehicle(vehicle);}
+    public APIResponse addVehicle(@Valid @RequestBody Vehicle vehicle)
+    {
+        System.out.println("");
+        long vehicleId = vehicleService.addVehicle(vehicle);
+        return  new APIResponse(true,"200",vehicleId);
+    }
     @GetMapping("/{vehiceId}")
     public Optional<Vehicle> fetchVehicle(@PathVariable long vehicleId) {return vehicleService.fetchVehicle(vehicleId);}
     @DeleteMapping("/{vehicleId}")

@@ -1,6 +1,9 @@
 package com.tarento.vehiclemanagement.vehicle.dto;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
@@ -8,7 +11,10 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long vehicleId;
+    @Size(min = 4,max = 12)
+    @Pattern(regexp = "(0-9)")
     private long chassisNumber;
+    @Size(min = 4,max = 12)
     private String vehicleName;
     private String vehicleType;
     private long modelId;
