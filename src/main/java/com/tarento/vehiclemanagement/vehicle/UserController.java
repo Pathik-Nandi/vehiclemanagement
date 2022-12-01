@@ -1,10 +1,14 @@
 package com.tarento.vehiclemanagement.vehicle;
 
+import com.codahale.metrics.annotation.Timed;
+import com.tarento.vehiclemanagement.vehicle.dto.ApiResponse;
 import com.tarento.vehiclemanagement.vehicle.dto.User;
 import com.tarento.vehiclemanagement.vehicle.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.xml.bind.ValidationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/{userId}")
-    public Optional<User> getUser(@PathVariable int userId){
+    public User getUser(@PathVariable int userId){
         return userService.getUser(userId);
     }
 
@@ -26,8 +30,10 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public User addUser(@RequestBody User user){
-        return userService.addUser(user);
+//    @Timed(value = "add.user",description = "Time taken to add user")
+    public ApiResponse addUser(@Valid @RequestBody User user) throws ValidationException {
+
+        return new ApiResponse(true,"200",userService.addUser(user));
     }
 
     @DeleteMapping("/{userId}")

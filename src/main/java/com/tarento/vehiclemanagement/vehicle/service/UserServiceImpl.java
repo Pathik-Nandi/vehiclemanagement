@@ -1,55 +1,59 @@
 package com.tarento.vehiclemanagement.vehicle.service;
 
-import antlr.StringUtils;
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.BreakIterator;
 import com.tarento.vehiclemanagement.vehicle.data.UserDao;
 import com.tarento.vehiclemanagement.vehicle.dto.User;
-import org.apache.commons.text.CaseUtils;
+//import org.apache.commons.text.CaseUtils;
+import com.tarento.vehiclemanagement.vehicle.exception.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
 
+//@Scope("prototype")
 @Component
+//@Configuration
 public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserDao userDao;
 
+
     @Override
+
     public User addUser(User user) {
 
         Long aadharNum = user.getAadharNum();
         List<User> aadharNameList = getUserByAadhar(aadharNum);
-        if(aadharNameList.size()>0){
-            return aadharNameList.get(0);
-        }
-
         String userName=user.getUserName();
+        Pattern regex = Pattern.compile("[{$&+,:;=\\?@#|/'<>.^*()%!-_}]");
+        String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
+        user.setUserName(titleCase);
+        if(aadharNameList.size()>0){
+            throw new ValidationException("ERR001","This aadhar num exists");
+        }
+        else if (regex.matcher(userName).find()) {
+            throw new ValidationException("400","Special Characters not allowed.");
+        }
 //        List usernameList=getUserByName(userName);
 //        if (usernameList.size()>0){
 //            return "User already exist";
 //        }
-        Pattern regex = Pattern.compile("[{$&+,:;=\\?@#|/'<>.^*()%!-_]}");
-        if (regex.matcher(userName).find()) {
-                return user;
-//            return "Name cannot have special characters";
-        }
-////        String camelCase = CaseUtils.toCamelCase(userName, true,' ');
-//        user.setUserName(camelCase);
-        String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
-        user.setUserName(titleCase);
         userDao.save(user);
         return user;
     }
 
     @Override
-    public Optional<User> getUser(long userId) {
-        return userDao.findById(userId);
+    public User getUser(long userId) {
+        Optional<User> idlist = userDao.findById(userId);
+        return idlist.get();
     }
 
     @Override
