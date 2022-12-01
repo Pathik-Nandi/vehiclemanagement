@@ -2,6 +2,7 @@ package com.tarento.vehiclemanagement.uservehiclemap;
 
 import com.tarento.vehiclemanagement.uservehiclemap.dto.APIResponse;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.UserVehicleMap;
+import com.tarento.vehiclemanagement.uservehiclemap.exception.NotFoundException;
 import com.tarento.vehiclemanagement.uservehiclemap.service.UserVehicleMapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +34,9 @@ public class UserVehicleMapController {
     public APIResponse getUserVehicleMapping(@PathVariable long vehicleId) {
         logger.info("Entering getting user vehicle mapping details by vehicle ID");
         List<UserVehicleMap> userVehicleMapList = userVehicleMapService.getUserVehicleMappingByVehicleId(vehicleId);
+        if (userVehicleMapList.isEmpty()) {
+            throw new NotFoundException("ERR002", "Mapping not found");
+        }
         return new APIResponse(true, "200", userVehicleMapList);
     }
 
@@ -47,6 +51,9 @@ public class UserVehicleMapController {
     public APIResponse getUserVehicleMappingByUserId(@PathVariable long userId) {
         logger.info("Entering getting user vehicle mapping details by user ID");
         List<UserVehicleMap> userVehicleMapList = userVehicleMapService.getUserVehicleMappingByUserId(userId);
+        if (userVehicleMapList.isEmpty()) {
+            throw new NotFoundException("ERR002", "Mapping not found");
+        }
         return new APIResponse(true, "200", userVehicleMapList);
     }
 

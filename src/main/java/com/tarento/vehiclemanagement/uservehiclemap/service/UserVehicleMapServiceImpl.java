@@ -53,10 +53,11 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
     @Override
     public List<UserVehicleMap> getUserVehicleMappingByUserId(long userId) {
         List<UserVehicleMap> userVehicleMapList = userVehicleMapDao.findByUserId(userId);
-        if (userVehicleMapList.isEmpty()) {
-            throw new NotFoundException("ERR002", "Mapping not found");
-        }
-        return userVehicleMapList;
+//        if (userVehicleMapList.isEmpty()) {
+//            throw new NotFoundException("ERR002", "Mapping not found");
+//        }
+//        return userVehicleMapList;
+        return userVehicleMapDao.findByUserId(userId);
     }
 
     @Override
