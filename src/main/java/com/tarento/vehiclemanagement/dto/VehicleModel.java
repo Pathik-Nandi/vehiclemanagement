@@ -12,9 +12,8 @@ public class VehicleModel extends Auditable{
     @Id
     private long modelId;
     @NotEmpty(message = "Name must not be blank")
-    private String modelName; //no integer value, should not empty,
-     @Min(1)
-     @Max(1000)
+    private String modelName;
+    @NotNull(message = "modelNumber must not be blank")
     private long modelNumber;
     @NotEmpty(message = "manufacturer must not be blank")
     private String manufacturer;

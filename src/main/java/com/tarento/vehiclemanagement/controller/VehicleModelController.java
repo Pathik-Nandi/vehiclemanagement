@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.controller;
 
+import com.tarento.vehiclemanagement.dto.APIResponse;
 import com.tarento.vehiclemanagement.dto.VehicleModel;
 import com.tarento.vehiclemanagement.service.VehicleModelService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +19,9 @@ public class VehicleModelController {
     @Autowired
     private VehicleModelService vehicleModelService;
 
-    //Testing controller
-    @GetMapping("/home")
-    public String home()
-    {
-        return "This is home page";
-    }
-
     //getting All VehicleModel record by get method
     @GetMapping("/getAllVehicleModel")
-    public List<VehicleModel> getVehicleModel()
+    public List<VehicleModel> getAllVehicleModel()
     {
         return vehicleModelService.getVehicleModel();
     }
@@ -41,8 +35,10 @@ public class VehicleModelController {
 
     //Adding VehicleModel by Post method
     @PostMapping("/addVehicleModel")
-    public String addVehicleModel(@Valid  @RequestBody VehicleModel vehicleModel) throws IOException, SAXException {
-        return this.vehicleModelService.addVehicleModel(vehicleModel);
+    public APIResponse addVehicleModel(@Valid @RequestBody VehicleModel vehicleModel) {
+
+        return new APIResponse(true,"200",vehicleModelService.addVehicleModel(vehicleModel));
+        //return this.vehicleModelService.addVehicleModel(vehicleModel);
     }
 
     //Updating VehicleModel record by put method
@@ -54,14 +50,18 @@ public class VehicleModelController {
 
     //Deleting VehicleModel record by delete method
     @DeleteMapping("/deleteVehicleModel/{modelId}")
-    public ResponseEntity<HttpStatus> deleteVehicleModel(@PathVariable String modelId)
-    {
-        try {
-            this.vehicleModelService.deleteVehicleModel(Long.parseLong((modelId)));
-            return new ResponseEntity<>(HttpStatus.OK);
+    public long deleteVehicleModel(@PathVariable Long modelId){
 
-        }catch (Exception e){
-            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return vehicleModelService.deleteVehicleModel(modelId);
     }
 }
+//    {
+//        try {
+//            this.vehicleModelService.deleteVehicleModel(Long.parseLong(((modelId))));
+//            return new ResponseEntity<>(HttpStatus.OK);
+//
+//        }catch (Exception e){
+//            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }
+//}
