@@ -1,12 +1,13 @@
-# vehiclemanagement
-Vehicle management system using Java SpringBoot is menu driven program which allows to add,update,get and delete record of vehicles.
+# VEHICLE MANAGEMENT
+
+Vehicle management system using Java SpringBoot is menu driven program which allows to add,update,get and delete record of vehicles.Vehicle management database consists of five tables such as vehicle,user,uservehicleMapping,vehicleSpec,vehicleModel.
 
 # Getting Started
 * MySQL Workbench
 * Postman/ Swagger-UI
 * IntelliJ IDEA Community Edition
-
-# Prerequisites
+ 
+ # Prerequisites
 Download and add following requirement in project buiLd path
 * Spring Initialization using [Spring initilizr](https://start.spring.io/)
 
@@ -19,7 +20,7 @@ Download and add following requirement in project buiLd path
 
 ## Steps
 
-Install MySql and Setup Schema(vehiclemanagement)
+Install MySql and Setup Schema(vehicleManagement)
 ```
 <dependency>
 	<groupId>mysql</groupId>
@@ -31,7 +32,7 @@ Install MySql and Setup Schema(vehiclemanagement)
 
 # Configure appication.properties
 ```
-spring.datasource.url=jdbc:mysql://localhost:3306/vehiclemanagement
+spring.datasource.url=jdbc:mysql://localhost:3306/employee_db
 spring.datasource.username=root
 spring.datasource.password=YOUR_PASSWORD
 spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
@@ -46,6 +47,35 @@ Project runs on port 8080
 
 
 # Database details
+
+Table: vehicle
+
+```
+vehicle_id - PrimaryKey
+chassis_number
+model_id
+vehicle_name
+vehicle_type
+created_at
+updated_at
+```
+# How it works
+
+```
+Vehicle API validates the uniqueness of chassis_number and avoids duplication. It allows for addVehicle,fetchVehicle and deleteVehicle methods.
+```
+
+Table: user
+
+```
+user_id
+user_name
+aadhar_id
+created_at
+updated_at
+
+```
+
 Table: vehicleSpec
 
 ```
@@ -57,3 +87,29 @@ created_at
 updated_at
 
 ```
+Tabe: userVehicleMap
+
+```
+map_id
+user_id
+vehicle_id
+created_at
+updated_at
+```
+Tabe: vehicleModel
+
+```
+nodel_id
+model_name
+manufacturer
+model_number
+year_of_manufacturer
+created_at
+updated_at
+```
+
+
+
+
+
+

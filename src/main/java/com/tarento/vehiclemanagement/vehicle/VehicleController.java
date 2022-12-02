@@ -14,10 +14,17 @@ import java.util.Optional;
 public class VehicleController {
     @Autowired
     private VehicleService vehicleService;
-
-    @GetMapping("/getVehicle")
-    public Optional<Vehicle> getModelDetails(long vehicleId) {
-        return vehicleService.getVehicle(vehicleId);
+    @PostMapping("/add")
+    public APIResponse addVehicle(@Valid @RequestBody Vehicle vehicle)
+    {
+        System.out.println("");
+        long vehicleId = vehicleService.addVehicle(vehicle);
+        return  new APIResponse(true,"200",vehicleId);
     }
-
+    @GetMapping("/{vehiceId}")
+    public Optional<Vehicle> fetchVehicle(@PathVariable long vehicleId) {return vehicleService.fetchVehicle(vehicleId);}
+    @DeleteMapping("/{vehicleId}")
+    public void deleteVehicle(@PathVariable long vehicleId) {vehicleService.deleteVehicle(vehicleId);}
+    @GetMapping("/findByChassisNumber/{chassisNumber}")
+    public  List<Vehicle> findBychassisNumber(@PathVariable long chassisNumber){return vehicleService.findBychassisNumber(chassisNumber);}
 }
