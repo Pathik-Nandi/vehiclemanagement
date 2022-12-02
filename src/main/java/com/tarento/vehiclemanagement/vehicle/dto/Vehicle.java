@@ -1,37 +1,36 @@
 package com.tarento.vehiclemanagement.vehicle.dto;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
 public class Vehicle {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long vehicleId;
-    @Size(min = 4,max = 12)
-    @Pattern(regexp = "(0-9)")
-    private long chassisNumber;
-    @Size(min = 4,max = 12)
     private String vehicleName;
     private String vehicleType;
-    private long modelId;
-    @Column(updatable = false)
-    private  Date Created_at;
-    private Date Updated_at;
+    private long model_id;
+    private long chassisNumber;
+    private Date createdAt;
+    private Date updatedAt;
+    private String createdBy;
+    private String updatedBy;
+
     public Vehicle() {
     }
 
-    public Vehicle(long vehicleId, long chassisNumber, String vehicleName, String vehicleType, long modelId, Date created_at, Date updated_at) {
+    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long model_id, long chassisNumber, Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
         this.vehicleId = vehicleId;
-        this.chassisNumber = chassisNumber;
         this.vehicleName = vehicleName;
         this.vehicleType = vehicleType;
-        this.modelId = modelId;
-        Created_at = created_at;
-        Updated_at = updated_at;
+        this.model_id = model_id;
+        this.chassisNumber = chassisNumber;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
     }
 
     public long getVehicleId() {
@@ -40,14 +39,6 @@ public class Vehicle {
 
     public void setVehicleId(long vehicleId) {
         this.vehicleId = vehicleId;
-    }
-
-    public long getChassisNumber() {
-        return chassisNumber;
-    }
-
-    public void setChassisNumber(long chassisNumber) {
-        this.chassisNumber = chassisNumber;
     }
 
     public String getVehicleName() {
@@ -66,27 +57,66 @@ public class Vehicle {
         this.vehicleType = vehicleType;
     }
 
-    public long getModelId() {
-        return modelId;
+    public long getModel_id() {
+        return model_id;
     }
 
-    public void setModelId(long modelId) {
-        this.modelId = modelId;
+    public void setModel_id(long model_id) {
+        this.model_id = model_id;
     }
 
-    public Date getCreated_at() {
-        return Created_at;
+    public long getChassisNumber() {
+        return chassisNumber;
     }
 
-    public void setCreated_at(Date created_at) {
-        Created_at = created_at;
+    public void setChassisNumber(long chassisNumber) {
+        this.chassisNumber = chassisNumber;
     }
 
-    public Date getUpdated_at() {
-        return Updated_at;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setUpdated_at(Date updated_at) {
-        Updated_at = updated_at;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehicle{" +
+                "vehicleId=" + vehicleId +
+                ", vehicleName='" + vehicleName + '\'' +
+                ", vehicleType='" + vehicleType + '\'' +
+                ", model_id=" + model_id +
+                ", chassisNumber=" + chassisNumber +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
+                '}';
     }
 }

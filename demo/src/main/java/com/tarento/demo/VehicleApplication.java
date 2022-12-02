@@ -1,11 +1,13 @@
-package com.tarento.vehiclemanagement;
+package com.tarento.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VehiclemanagementApplication {
+public class VehicleApplication {
+
 	public static void main(String[] args) {
-		SpringApplication.run(VehiclemanagementApplication.class, args);
+		SpringApplication.run(VehicleApplication.class, args);
 	}
+
 }

@@ -1,14 +1,12 @@
 package com.tarento.vehiclemanagement.vehicle;
 
-
-import com.tarento.vehiclemanagement.vehicle.dto.APIResponse;
-import com.tarento.vehiclemanagement.vehicle.dto.KeyValuePair;
 import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
 import com.tarento.vehiclemanagement.vehicle.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import javax.validation.Valid;
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.util.Optional;
 
 @RestController

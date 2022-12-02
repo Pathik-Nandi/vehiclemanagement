@@ -1,6 +1,5 @@
-package com.tarento.vehiclemanagement.vehicle.dto;
+package com.tarento.vehiclemanagement.uservehiclemap.dto;
 
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,8 +8,8 @@ public class ValidationError {
     private String type;
 
     public ValidationError() {
-
     }
+
     public ValidationError(List<KeyValuePair> errors, String type) {
         this.errors = errors;
         this.type = type;
