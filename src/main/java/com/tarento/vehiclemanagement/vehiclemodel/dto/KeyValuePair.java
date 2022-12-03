@@ -1,6 +1,6 @@
-package com.tarento.vehiclemanagement.uservehiclemap.dto;
+package com.tarento.vehiclemanagement.vehiclemodel.dto;
 
-public class KeyValuePair extends com.tarento.vehiclemanagement.vehiclemodel.dto.KeyValuePair {
+public class KeyValuePair {
     private String key;
     private String value;
 
@@ -26,13 +26,5 @@ public class KeyValuePair extends com.tarento.vehiclemanagement.vehiclemodel.dto
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "KeyValuePair{" +
-                "key='" + key + '\'' +
-                ", value='" + value + '\'' +
-                '}';
     }
 }

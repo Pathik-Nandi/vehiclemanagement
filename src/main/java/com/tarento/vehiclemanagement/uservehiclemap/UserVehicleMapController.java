@@ -1,8 +1,8 @@
 package com.tarento.vehiclemanagement.uservehiclemap;
 
+import com.tarento.vehiclemanagement.exception.NotFoundException;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.APIResponse;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.UserVehicleMap;
-import com.tarento.vehiclemanagement.uservehiclemap.exception.NotFoundException;
 import com.tarento.vehiclemanagement.uservehiclemap.service.UserVehicleMapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +17,9 @@ import java.util.List;
 @ControllerAdvice
 @RequestMapping("/userVehicleMap")
 public class UserVehicleMapController {
+    Logger logger = LoggerFactory.getLogger(Controller.class);
     @Autowired
     private UserVehicleMapService userVehicleMapService;
-
-    Logger logger = LoggerFactory.getLogger(Controller.class);
-
 
     @PostMapping("/add")
     public APIResponse adduserVehicleMapping(@Valid @RequestBody UserVehicleMap userVehicleMap) {

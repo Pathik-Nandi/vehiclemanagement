@@ -1,6 +1,6 @@
-package com.tarento.vehiclemanagement.uservehiclemap.dto;
+package com.tarento.vehiclemanagement.user.dto;
 
-public class KeyValuePair extends com.tarento.vehiclemanagement.vehiclemodel.dto.KeyValuePair {
+public class KeyValuePair {
     private String key;
     private String value;
 
@@ -11,6 +11,7 @@ public class KeyValuePair extends com.tarento.vehiclemanagement.vehiclemodel.dto
         this.key = key;
         this.value = value;
     }
+
 
     public String getKey() {
         return key;
@@ -26,13 +27,5 @@ public class KeyValuePair extends com.tarento.vehiclemanagement.vehiclemodel.dto
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    @Override
-    public String toString() {
-        return "KeyValuePair{" +
-                "key='" + key + '\'' +
-                ", value='" + value + '\'' +
-                '}';
     }
 }

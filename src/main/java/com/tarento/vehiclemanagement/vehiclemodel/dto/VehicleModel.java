@@ -1,36 +1,36 @@
 package com.tarento.vehiclemanagement.vehiclemodel.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.time.Year;
+import net.bytebuddy.utility.dispatcher.JavaDispatcher;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+//extends Auditable implements Source
 @Entity
-@Table(name = "vehicle_model")
-public class VehicleModel {
+public class VehicleModel extends Auditable {
     @Id
     private long modelId;
+    @NotEmpty(message = "Name must not be blank")
     private String modelName;
-    private long modelNum;
-    private long manufacturedYear;
-    private Date createdAt;
-    private Date updatedAt;
-    private String createdBy;
-    private String updatedBy;
+    @NotNull(message = "modelNumber must not be blank")
+    private long modelNumber;
+    @NotEmpty(message = "manufacturer must not be blank")
+    private String manufacturer;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_of_manufacture", nullable = false, updatable = false)
+    private Date dateOfManufacture;
 
     public VehicleModel() {
     }
 
-    public VehicleModel(long modelId, String modelName, long modelNum, long manufacturedYear, Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
+    public VehicleModel(long modelId, String modelName, long modelNumber, String manufacturer, Date dateOfManufacture) {
         this.modelId = modelId;
         this.modelName = modelName;
-        this.modelNum = modelNum;
-        this.manufacturedYear = manufacturedYear;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-        this.createdBy = createdBy;
-        this.updatedBy = updatedBy;
+        this.modelNumber = modelNumber;
+        this.manufacturer = manufacturer;
+        this.dateOfManufacture = dateOfManufacture;
     }
 
     public long getModelId() {
@@ -49,65 +49,40 @@ public class VehicleModel {
         this.modelName = modelName;
     }
 
-    public long getModelNum() {
-        return modelNum;
+    public long getModelNumber() {
+        return modelNumber;
     }
 
-    public void setModelNum(long modelNum) {
-        this.modelNum = modelNum;
+    public void setModelNumber(long modelNumber) {
+        this.modelNumber = modelNumber;
     }
 
-    public long getManufacturedYear() {
-        return manufacturedYear;
+    public String getManufacturer() {
+        return manufacturer;
     }
 
-    public void setManufacturedYear(long manufacturedYear) {
-        this.manufacturedYear = manufacturedYear;
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Date getDateOfManufacture() {
+        return dateOfManufacture;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
-        this.updatedBy = updatedBy;
+    public void setDateOfManufacture(Date dateOfManufacture) {
+        this.dateOfManufacture = dateOfManufacture;
     }
 
     @Override
+    @JavaDispatcher.Container
     public String toString() {
         return "VehicleModel{" +
                 "modelId=" + modelId +
                 ", modelName='" + modelName + '\'' +
-                ", modelNum=" + modelNum +
-                ", manufacturedYear=" + manufacturedYear +
-                ", createdAt=" + createdAt +
-                ", updatedAt=" + updatedAt +
-                ", createdBy='" + createdBy + '\'' +
-                ", updatedBy='" + updatedBy + '\'' +
+                ", modelNumber=" + modelNumber +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", dateOfManufacture=" + dateOfManufacture +
                 '}';
     }
+
 }

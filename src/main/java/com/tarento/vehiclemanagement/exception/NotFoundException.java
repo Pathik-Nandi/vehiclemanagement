@@ -5,10 +5,10 @@ import com.tarento.vehiclemanagement.uservehiclemap.dto.KeyValuePair;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationException extends RuntimeException {
+public class NotFoundException extends RuntimeException {
     private List<KeyValuePair> errorCodes = new ArrayList<>();
 
-    public ValidationException(String key, String value) {
+    public NotFoundException(String key, String value) {
         errorCodes.add(new KeyValuePair(key, value));
     }
 
