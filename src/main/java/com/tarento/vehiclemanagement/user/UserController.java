@@ -4,10 +4,9 @@ package com.tarento.vehiclemanagement.user;
 
 import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.user.service.UserService;
-import com.tarento.vehiclemanagement.vehicle.dto.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
+import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
@@ -31,9 +30,9 @@ public class UserController {
 
     @PostMapping("/addUser")
 //    @Timed(value = "add.user",description = "Time taken to add user")
-    public ApiResponse addUser(@Valid @RequestBody User user) throws ValidationException {
+    public APIResponse addUser(@Valid @RequestBody User user) throws ValidationException {
 
-        return new ApiResponse(true, "200", userService.addUser(user));
+        return new APIResponse(true, "200", userService.addUser(user));
     }
 
     @DeleteMapping("/{userId}")

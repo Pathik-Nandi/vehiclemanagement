@@ -1,7 +1,5 @@
 package com.tarento.vehiclemanagement.exception;
 
-import com.tarento.vehiclemanagement.uservehiclemap.dto.KeyValuePair;
-
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.tarento.vehiclemanagement.vehiclemodel.dto;
+package com.tarento.vehiclemanagement.exception;
 
 public class KeyValuePair {
     private String key;
@@ -11,6 +11,7 @@ public class KeyValuePair {
         this.key = key;
         this.value = value;
     }
+
 
     public String getKey() {
         return key;

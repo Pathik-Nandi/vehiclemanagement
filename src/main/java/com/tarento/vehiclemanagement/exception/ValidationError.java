@@ -1,4 +1,4 @@
-package com.tarento.vehiclemanagement.uservehiclemap.dto;
+package com.tarento.vehiclemanagement.exception;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ public class ValidationError {
     private String type;
 
     public ValidationError() {
+
     }
 
     public ValidationError(List<KeyValuePair> errors, String type) {

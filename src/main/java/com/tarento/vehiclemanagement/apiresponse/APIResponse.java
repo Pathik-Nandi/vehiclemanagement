@@ -1,24 +1,24 @@
-package com.tarento.vehiclemanagement.uservehiclemap.dto;
+package com.tarento.vehiclemanagement.apiresponse;
 
 public class APIResponse {
-    private boolean status;
+    private Boolean status;
     private String statusCode;
     private Object responseData;
 
     public APIResponse() {
     }
 
-    public APIResponse(boolean status, String statusCode, Object responseData) {
+    public APIResponse(Boolean status, String statusCode, Object responseData) {
         this.status = status;
         this.statusCode = statusCode;
         this.responseData = responseData;
     }
 
-    public boolean isStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -36,14 +36,5 @@ public class APIResponse {
 
     public void setResponseData(Object responseData) {
         this.responseData = responseData;
-    }
-
-    @Override
-    public String toString() {
-        return "APIResponse{" +
-                "status=" + status +
-                ", statusCode='" + statusCode + '\'' +
-                ", responseData=" + responseData +
-                '}';
     }
 }

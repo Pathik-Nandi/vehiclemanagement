@@ -1,6 +1,6 @@
 package com.tarento.vehiclemanagement.vehicle;
 
-import com.tarento.vehiclemanagement.user.dto.APIResponse;
+import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
 import com.tarento.vehiclemanagement.vehicle.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;

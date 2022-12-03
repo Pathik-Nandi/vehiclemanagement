@@ -1,7 +1,7 @@
 package com.tarento.vehiclemanagement.uservehiclemap;
 
+import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import com.tarento.vehiclemanagement.exception.NotFoundException;
-import com.tarento.vehiclemanagement.uservehiclemap.dto.APIResponse;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.UserVehicleMap;
 import com.tarento.vehiclemanagement.uservehiclemap.service.UserVehicleMapService;
 import org.slf4j.Logger;

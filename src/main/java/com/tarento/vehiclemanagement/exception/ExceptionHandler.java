@@ -1,7 +1,5 @@
 package com.tarento.vehiclemanagement.exception;
 
-import com.tarento.vehiclemanagement.uservehiclemap.dto.KeyValuePair;
-import com.tarento.vehiclemanagement.uservehiclemap.dto.ValidationError;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;

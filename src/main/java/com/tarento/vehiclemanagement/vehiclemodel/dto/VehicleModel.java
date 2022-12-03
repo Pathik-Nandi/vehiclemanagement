@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.vehiclemodel.dto;
 
+import com.tarento.vehiclemanagement.audit.Auditable;
 import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 
 import javax.persistence.*;
