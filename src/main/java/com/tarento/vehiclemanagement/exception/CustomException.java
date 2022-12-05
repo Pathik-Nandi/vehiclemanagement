@@ -3,10 +3,10 @@ package com.tarento.vehiclemanagement.exception;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ValidationException extends RuntimeException {
+public class CustomException extends RuntimeException {
     private List<KeyValuePair> errorCodes = new ArrayList<>();
 
-    public ValidationException(String key, String value) {
+    public CustomException(String key, String value) {
         errorCodes.add(new KeyValuePair(key, value));
     }
 

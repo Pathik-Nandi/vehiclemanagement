@@ -2,15 +2,19 @@ package com.tarento.vehiclemanagement.vehicle.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
 import java.util.Date;
 
 @Entity
+@Table(name = "vehicle", schema = "Vehiclemanagement")
 public class Vehicle {
 
     @Id
     private long vehicleId;
     private String vehicleName;
     private String vehicleType;
+    @JoinColumn(name="model_id")
     private long model_id;
     private long chassisNumber;
     private Date createdAt;

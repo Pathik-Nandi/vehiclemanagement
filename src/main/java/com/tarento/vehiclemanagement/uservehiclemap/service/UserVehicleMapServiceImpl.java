@@ -1,12 +1,11 @@
 package com.tarento.vehiclemanagement.uservehiclemap.service;
 
+import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.uservehiclemap.data.UserVehicleMapDao;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.UserVehicleMap;
-import com.tarento.vehiclemanagement.uservehiclemap.exception.CustomException;
-import com.tarento.vehiclemanagement.uservehiclemap.exception.NotFoundException;
-import com.tarento.vehiclemanagement.vehicle.data.VehicleRepo;
+import com.tarento.vehiclemanagement.vehicle.data.VehicleDao;
 import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
-import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelRepo;
+import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
 import com.tarento.vehiclemanagement.vehiclemodel.dto.VehicleModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,14 +24,14 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
     @Autowired
     private UserVehicleMapDao userVehicleMapDao;
     @Autowired
-    private VehicleRepo vehicleRepo;
+    private VehicleDao vehicleRepo;
     @Autowired
-    private VehicleModelRepo vehicleModelRepo;
+    private VehicleModelDao vehicleModelRepo;
 
     @Value("${vehicleMapServiceImpl.maplimit}")
     private int maplimit;
     @Value("${vehicleMapServiceImpl.yearLimit}")
-    private  long yearLimit;
+    private long yearLimit;
 
     @Override
     public UserVehicleMap adduserVehicleMapping(UserVehicleMap userVehicleMap) {
@@ -41,10 +40,10 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
             throw new CustomException("ERR001", "Mapping limit reached");
         } else {
             Optional<Vehicle> vehicle = vehicleRepo.findById(userVehicleMap.getVehicleId());
-            Optional<VehicleModel>  vehicleModel=vehicleModelRepo.findById(vehicle.get().getModel_id());
-            if (vehicleModel.get().getManufacturedYear()<yearLimit){
-                throw new CustomException("ERR003","Did not meet year requirements ");
-            }
+            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicle.get().getModel_id());
+//            if (vehicleModel.get().getDateOfManufacture()<yearLimit){
+//                throw new CustomException("ERR003","Did not meet year requirements ");
+//            }
             userVehicleMapDao.save(userVehicleMap);
             return userVehicleMap;
         }
