@@ -11,14 +11,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.xml.transform.Source;
 
 @Entity
-public class VehicleSpec extends Auditable implements Source {
+public class VehicleSpec {
     @Id
     private long specId;
-    @NotEmpty(message = "vRPM must not be blank")
-    private long vRPM;
-    @NotEmpty(message = "fuelCap must not be blank")
+//    @NotEmpty(message = "vehicleRPM must not be blank")
+    private long vehicleRpm;
+//    @NotEmpty(message = "fuelCap must not be blank")
     private String fuelCap;
-    @NotEmpty(message = "engineCap must not be blank")
+//    @NotEmpty(message = "engineCap must not be blank")
     private String engineCap;
     @Min(1)
     @Max(99)
@@ -31,9 +31,9 @@ public class VehicleSpec extends Auditable implements Source {
 
     }
 
-    public VehicleSpec(long specId, long vRPM, String fuelCap, String engineCap, String mileage, long modelId) {
+    public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId) {
         this.specId = specId;
-        this.vRPM = vRPM;
+        this.vehicleRpm = vehicleRpm;
         this.fuelCap = fuelCap;
         this.engineCap = engineCap;
         this.mileage = mileage;
@@ -48,12 +48,12 @@ public class VehicleSpec extends Auditable implements Source {
         this.specId = specId;
     }
 
-    public long getvRPM() {
-        return vRPM;
+    public long getVehicleRpm() {
+        return vehicleRpm;
     }
 
-    public void setvRPM(long vRPM) {
-        this.vRPM = vRPM;
+    public void setVehicleRpm(long vehicleRpm) {
+        this.vehicleRpm = vehicleRpm;
     }
 
     public String getFuelCap() {
@@ -93,7 +93,7 @@ public class VehicleSpec extends Auditable implements Source {
     public String toString() {
         return "VehicleSpec{" +
                 "specId=" + specId +
-                ", vRPM=" + vRPM +
+                ", vRPM=" + vehicleRpm +
                 ", fuelCap='" + fuelCap + '\'' +
                 ", engineCap='" + engineCap + '\'' +
                 ", mileage='" + mileage + '\'' +
@@ -101,17 +101,17 @@ public class VehicleSpec extends Auditable implements Source {
                 '}';
     }
 
-    @Override
-    public String getSystemId() {
-        return null;
-    }
-
-    @Override
-    public void setSystemId(String systemId) {
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return Source.super.isEmpty();
-    }
+//    @Override
+//    public String getSystemId() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void setSystemId(String systemId) {
+//    }
+//
+//    @Override
+//    public boolean isEmpty() {
+//        return Source.super.isEmpty();
+//    }
 }

@@ -14,9 +14,8 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 
-//@Scope("prototype")
+
 @Component
-//@Configuration
 @Primary
 public class UserServiceImpl implements UserService {
 
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser(long userId) {
+    public User getUserById(long userId) {
         Optional<User> idlist = userDao.findById(userId);
         return idlist.get();
     }

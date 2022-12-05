@@ -23,7 +23,7 @@ public class VehicleController {
         return new APIResponse(true, "200", vehicleId);
     }
 
-    @GetMapping("/{vehiceId}")
+    @GetMapping("/{vehicleId}")
     public Optional<Vehicle> fetchVehicle(@PathVariable long vehicleId) {
         return vehicleService.fetchVehicle(vehicleId);
     }

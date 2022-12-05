@@ -1,20 +1,18 @@
 package com.tarento.vehiclemanagement.user.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Date;
 
 @Entity
+@Table(name = "user", schema = "Vehiclemanagement")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
     //    @NotBlank(message = "Name is mandatory")
-    @Size(min = 10, max = 30)
+    @Size(min = 3, max = 15)
     private String userName;
     //    @NotBlank(message = "Aadhar Number is mandatory")
     private Long aadharNum;

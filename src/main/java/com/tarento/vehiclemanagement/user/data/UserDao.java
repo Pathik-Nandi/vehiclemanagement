@@ -12,4 +12,5 @@ public interface UserDao extends JpaRepository<User, Long> {
     public List<User> findByuserName(String userName);
 
     public List<User> findByaadharNum(long aadharNum);
+
 }

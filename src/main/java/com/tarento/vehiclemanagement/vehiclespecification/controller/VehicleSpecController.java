@@ -45,9 +45,9 @@ public class VehicleSpecController {
 
     //Deleting VehicleSpec record by delete method
     @DeleteMapping("/deleteVehicleSpec/{specId}")
-    public ResponseEntity<HttpStatus> deleteVehicleSpec(@PathVariable String modelId) {
+    public ResponseEntity<HttpStatus> deleteVehicleSpec(@PathVariable long specId) {
         try {
-            this.vehicleSpecService.deleteVehicleSpec(Long.parseLong((modelId)));
+            this.vehicleSpecService.deleteVehicleSpec(specId);
             return new ResponseEntity<>(HttpStatus.OK);
 
         } catch (Exception e) {

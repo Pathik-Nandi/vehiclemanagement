@@ -32,15 +32,15 @@ public class VehicleSpecServiceImpl implements VehicleSpecService {
 
     @Override
     public String addVehicleSpec(VehicleSpec vehicleSpec) throws IOException, SAXException {
-        Set<ConstraintViolation<VehicleSpec>> violations = null;
-        validator.validate(vehicleSpec);
-        if (!violations.isEmpty()) {
-            StringBuilder sb = new StringBuilder();
-            for (ConstraintViolation<VehicleSpec> constraintViolation : violations) {
-                sb.append(constraintViolation.getMessage());
-            }
-            throw new ConstraintViolationException("Error occurred" + sb.toString(), violations);
-        }
+//        Set<ConstraintViolation<VehicleSpec>> violations = null;
+//        validator.validate(vehicleSpec);
+//        if (!violations.isEmpty()) {
+//            StringBuilder sb = new StringBuilder();
+//            for (ConstraintViolation<VehicleSpec> constraintViolation : violations) {
+//                sb.append(constraintViolation.getMessage());
+//            }
+//            throw new ConstraintViolationException("Error occurred" + sb.toString(), violations);
+//        }
         vehicleSpecDao.save(vehicleSpec);
         return "VehicleModel for " + vehicleSpec.getSpecId() + " Added!";
     }
