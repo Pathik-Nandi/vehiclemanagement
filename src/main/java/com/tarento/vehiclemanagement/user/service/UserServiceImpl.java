@@ -2,6 +2,7 @@ package com.tarento.vehiclemanagement.user.service;
 
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.BreakIterator;
+import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.user.data.UserDao;
 import com.tarento.vehiclemanagement.user.dto.User;
@@ -34,9 +35,9 @@ public class UserServiceImpl implements UserService {
         String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
         user.setUserName(titleCase);
         if (aadharNameList.size() > 0) {
-            throw new ValidationException("ERR001", "This aadhar num exists");
+            throw new CustomException("ERR001", "This aadhar num exists");
         } else if (regex.matcher(userName).find()) {
-            throw new ValidationException("400", "Special Characters not allowed.");
+            throw new CustomException("400", "Special Characters not allowed.");
         }
 //        List usernameList=getUserByName(userName);
 //        if (usernameList.size()>0){

@@ -11,6 +11,7 @@ import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
+//import com.tarento.vehiclemanagement.exception.ValidationException;
 
 @RequestMapping("/User")
 @RestController

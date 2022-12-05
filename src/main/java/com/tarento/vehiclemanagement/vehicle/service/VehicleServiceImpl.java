@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.vehicle.service;
 
+import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.vehicle.data.VehicleDao;
 import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
@@ -21,7 +22,7 @@ public class VehicleServiceImpl implements VehicleService {
         List<Vehicle> vehicleList = findBychassisNumber(vehicle.getChassisNumber());
         if (vehicleList.size() > 0) {
 //            throw new RuntimeException("chassis number already exist");
-            throw new ValidationException("400", "chassis number already exists");
+            throw new CustomException("400", "chassis number already exists");
 
         }
         return vehicleDao.save(vehicle).getVehicleId();

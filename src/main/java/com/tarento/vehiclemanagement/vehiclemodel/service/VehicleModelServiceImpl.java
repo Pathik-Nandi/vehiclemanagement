@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.vehiclemodel.service;
 
+import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
 import com.tarento.vehiclemanagement.vehiclemodel.dto.VehicleModel;
@@ -32,7 +33,7 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     public VehicleModel addVehicleModel(VehicleModel vehicleModel) {
         vehicleModelDao.save(vehicleModel);
         if (vehicleModel.getModelName().isEmpty()) {
-            throw new ValidationException("400", "null value");
+            throw new CustomException("400", "null value");
         }
         return vehicleModel;
     }
