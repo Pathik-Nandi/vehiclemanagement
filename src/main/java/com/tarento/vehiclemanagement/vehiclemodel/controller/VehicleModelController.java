@@ -37,7 +37,7 @@ public class VehicleModelController {
 
     //Updating VehicleModel record by put method
     @PutMapping("/updateVehicleModel")
-    public VehicleModel updateVehicleModel(@RequestBody VehicleModel vehicleModel) {
+    public VehicleModel updateVehicleModel(@Valid @RequestBody VehicleModel vehicleModel) {
         return this.vehicleModelService.updateVehicleModel(vehicleModel);
     }
 

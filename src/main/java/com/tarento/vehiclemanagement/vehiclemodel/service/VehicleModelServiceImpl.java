@@ -9,8 +9,9 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
-@Scope("prototype")
+//@Scope("prototype")
 @Component
 public class VehicleModelServiceImpl implements VehicleModelService {
 
@@ -30,22 +31,35 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     @Override
     @Transactional
     public VehicleModel addVehicleModel(VehicleModel vehicleModel) {
-        vehicleModelDao.save(vehicleModel);
         if (vehicleModel.getModelName().isEmpty()) {
             throw new ValidationException("400", "null value");
+        } else if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
+            throw new ValidationException("400", "model already exit");
+        }
+
+         else {
+            vehicleModelDao.save(vehicleModel);
         }
         return vehicleModel;
     }
 
     @Override
     public VehicleModel updateVehicleModel(VehicleModel vehicleModel) {
-        vehicleModelDao.save(vehicleModel);
+        if(vehicleModel.getModelName().isEmpty()){
+            throw new ValidationException("400", "null value");
+        } else if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
+            vehicleModelDao.save(vehicleModel);
+        }else {
+            throw new ValidationException("400", "model doesn't exit!! please check model Id");
+        }
         return vehicleModel;
     }
 
     @Override
     public long deleteVehicleModel(long modelId) {
-        vehicleModelDao.deleteById(modelId);
+        VehicleModel vehicleModel = new VehicleModel();
+        vehicleModel.setStatus(false);
+//        vehicleModelDao.deleteById(modelId);
         return modelId;
     }
 }
