@@ -65,17 +65,6 @@ updated_at
 Vehicle API validates the uniqueness of chassis_number and avoids duplication. It allows for addVehicle,fetchVehicle and deleteVehicle methods.
 ```
 
-Table: user
-
-```
-user_id
-user_name
-aadhar_id
-created_at
-updated_at
-
-```
-
 Table: vehicleSpec
 
 ```
@@ -87,25 +76,7 @@ created_at
 updated_at
 
 ```
-Tabe: userVehicleMap
 
-```
-map_id
-user_id
-vehicle_id
-created_at
-updated_at
-```
-Tabe: vehicleModel
-
-```
-nodel_id
-model_name
-manufacturer
-model_number
-year_of_manufacturer
-created_at
-updated_at
 ```
 
 
