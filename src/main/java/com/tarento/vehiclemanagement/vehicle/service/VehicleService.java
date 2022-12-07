@@ -13,5 +13,7 @@ public interface VehicleService {
 
     public void deleteVehicle(long vehicleId);
 
-  public long updateVehicle(Vehicle vehicle);
+    public long updateVehicle(Vehicle vehicle);
 }
+
+

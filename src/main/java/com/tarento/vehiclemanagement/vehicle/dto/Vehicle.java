@@ -8,6 +8,7 @@ import java.util.Date;
 public class Vehicle {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long vehicleId;
     private String vehicleName;
     private String vehicleType;
