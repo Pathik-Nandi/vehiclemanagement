@@ -1,14 +1,19 @@
 package com.tarento.vehiclemanagement.vehicle.service;
 
+import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.NotFoundException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
+import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.vehicle.data.VehicleDao;
 import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
 import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
+import com.tarento.vehiclemanagement.vehiclemodel.dto.VehicleModel;
+import com.tarento.vehiclemanagement.vehiclemodel.service.VehicleModelService;
+import com.tarento.vehiclemanagement.vehiclemodel.service.VehicleModelServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -16,34 +21,40 @@ import java.util.Optional;
 public class VehicleServiceImpl implements VehicleService {
     @Autowired
     private VehicleDao vehicleDao;
-
-//    @Autowired
-//    private VehicleModelDao vehicleModelDao;
+    @Autowired
+    private VehicleModelDao vehicleModelDao;
 
     @Override
     @Transactional
     public long addVehicle(Vehicle vehicle) {
 //        List<Vehicle> vehicleList = findBychassisNumber(vehicle.getChassisNumber());
         if (vehicleDao.findBychassisNumber(vehicle.getChassisNumber()).isEmpty()){
-            return vehicleDao.save(vehicle).getVehicleId();
+            if (vehicleModelDao.findById(vehicle.getModel_id()).isPresent()){
+                return vehicleDao.save(vehicle).getVehicleId();
+            }
+            else{
+                throw new NotFoundException("404","Model id doesn't exist");
+            }
         }
-//        return vehicleDao.save(vehicle).getVehicleId();
-//        return vehicle.getChassisNumber();
-        throw new NotFoundException("Err07","Already exists with this chassis number");
+        throw new NotFoundException("Err07","Vehicle already exists with this chassis number");
     }
-
     @Override
     public void deleteVehicle(long vehicleId) {
-        vehicleDao.softDelete(vehicleId);
+        if (vehicleDao.existsById(vehicleId)) {
+            vehicleDao.softDelete(vehicleId);
+        }
+        else{
+            throw new NotFoundException("404","Vehicle id"+" "+ +vehicleId +" "+ "doesn't exists");
+        }
     }
-
     @Override
     public long updateVehicle(Vehicle vehicle) {
-        if (vehicleDao.findBychassisNumber(vehicle.getChassisNumber()).isEmpty()){
-            throw new NotFoundException("404","chassis number not found");
+        if (vehicleDao.findBychassisNumber(vehicle.getChassisNumber()).isEmpty()) {
+            throw new NotFoundException("404", "chassis number not found");
         }
-        return vehicleDao.save(vehicle).getChassisNumber();
-
+        else {
+            return vehicleDao.save(vehicle).getChassisNumber();
+        }
     }
 
     @Override
@@ -57,7 +68,12 @@ public class VehicleServiceImpl implements VehicleService {
     }
     @Override
     public Optional<Vehicle> fetchVehicle(long vehicleId) {
+        if (vehicleDao.existsById(vehicleId)){
         return vehicleDao.findById(vehicleId);
+        }
+        else{
+            throw new NotFoundException("404","Vehicle id:" +vehicleId +" "+"doesn't exist");
+        }
     }
 }
 
