@@ -19,11 +19,15 @@ public class Vehicle {
     private Date updatedAt;
     private String createdBy;
     private String updatedBy;
+    @Column(name = "status")
+//    private Boolean active = true;
+    private boolean deleted = Boolean.FALSE;
+
 
     public Vehicle() {
     }
 
-    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long model_id, long chassisNumber, Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
+    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long model_id, long chassisNumber,Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
         this.vehicleId = vehicleId;
         this.vehicleName = vehicleName;
         this.vehicleType = vehicleType;

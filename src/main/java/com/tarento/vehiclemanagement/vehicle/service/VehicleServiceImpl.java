@@ -34,7 +34,7 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public void deleteVehicle(long vehicleId) {
-        vehicleDao.deleteById(vehicleId);
+        vehicleDao.softDelete(vehicleId);
     }
 
     @Override
