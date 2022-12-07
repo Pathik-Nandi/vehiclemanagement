@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.vehiclemodel.service;
 
+import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
 import com.tarento.vehiclemanagement.vehiclemodel.dto.VehicleModel;
@@ -25,18 +26,18 @@ public class VehicleModelServiceImpl implements VehicleModelService {
 
     @Override
     public VehicleModel getVehicleModelById(long modelId) {
-        return vehicleModelDao.findById(modelId).get();
+        Optional<VehicleModel> VM = vehicleModelDao.findById(modelId);
+        if (VM.isEmpty() || VM.get().isStatus()==false){
+            throw new CustomException("ERROR:400","model is not found!");
+        }
+        return VM.get();
     }
-
     @Override
     @Transactional
     public VehicleModel addVehicleModel(VehicleModel vehicleModel) {
-        if (vehicleModel.getModelName().isEmpty()) {
-            throw new ValidationException("400", "null value");
-        } else if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
-            throw new ValidationException("400", "model already exit");
+         if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
+            throw new CustomException("ERROR:400", "model already exit");
         }
-
          else {
             vehicleModelDao.save(vehicleModel);
         }
@@ -45,21 +46,17 @@ public class VehicleModelServiceImpl implements VehicleModelService {
 
     @Override
     public VehicleModel updateVehicleModel(VehicleModel vehicleModel) {
-        if(vehicleModel.getModelName().isEmpty()){
-            throw new ValidationException("400", "null value");
-        } else if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
+         if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
             vehicleModelDao.save(vehicleModel);
         }else {
-            throw new ValidationException("400", "model doesn't exit!! please check model Id");
+            throw new CustomException("ERROR:400", "model doesn't exit!!");
         }
         return vehicleModel;
     }
 
     @Override
     public long deleteVehicleModel(long modelId) {
-        VehicleModel vehicleModel = new VehicleModel();
-        vehicleModel.setStatus(false);
-//        vehicleModelDao.deleteById(modelId);
+        vehicleModelDao.softDelete(modelId);
         return modelId;
     }
 }

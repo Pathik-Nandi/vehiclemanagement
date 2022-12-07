@@ -23,7 +23,7 @@ public class VehicleModelController {
 
     //getting particular VehicleModel record by assessmentId
     @GetMapping("/getVehicleModel/{modelId}")
-    public VehicleModel getVehicleModelById(@PathVariable Long modelId) {
+    public VehicleModel getVehicleModelById(@Valid @PathVariable Long modelId) {
         return this.vehicleModelService.getVehicleModelById(modelId);
     }
 
