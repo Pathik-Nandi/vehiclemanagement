@@ -2,6 +2,7 @@ package com.tarento.vehiclemanagement.user.service;
 
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.BreakIterator;
+import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.user.data.UserDao;
 import com.tarento.vehiclemanagement.user.dto.User;
