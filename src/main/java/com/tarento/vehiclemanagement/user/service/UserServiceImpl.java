@@ -35,16 +35,13 @@ public class UserServiceImpl implements UserService {
         Long aadharNum = user.getAadharNum();
         List<User> aadharNameList = getUserByAadhar(aadharNum);
         String userName = user.getUserName();
-//        Pattern regex = Pattern.compile("[{$&+,:;=\\?@#|/'<>.^*()%!-_}]");
         String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
         user.setUserName(titleCase);
         if (aadharNameList.size() > 0) {
             throw new CustomException("ERR001", "This aadhar num exists");
         }
         else
-//            if (regex.matcher(userName).find()) {
-//            throw new CustomException("400", "Special Characters not allowed.");
-//        }
+
         userDao.save(user);
         return user;
     }
