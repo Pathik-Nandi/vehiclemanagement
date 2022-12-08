@@ -20,7 +20,7 @@ public class VehicleSpecController {
     @GetMapping("/getVehicleSpec/{specId}")
     public VehicleSpec getVehicleSpecById(@PathVariable Long specId)
     {
-        return this.vehicleSpecService.getVehicleModelById(specId);
+        return this.vehicleSpecService.getVehicleSpecById(specId);
     }
 
     //Adding VehicleSpec by Post method
