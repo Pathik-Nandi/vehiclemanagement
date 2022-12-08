@@ -23,11 +23,11 @@ public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long userId;
-    //    @NotBlank(message = "Name is mandatory")
+
     @Size(min = 3, max = 15)
-    //@Pattern(regexp = "[{$&+,:;=\\\\?@#|/'<>.^*()%!-_}]")
+
     private String userName;
-    //    @NotBlank(message = "Aadhar Number is mandatory")
+
     private Long aadharNum;
     private Date createdAt;
     private String createdBy;

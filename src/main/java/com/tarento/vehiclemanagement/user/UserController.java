@@ -1,7 +1,5 @@
 package com.tarento.vehiclemanagement.user;
 
-//import com.codahale.metrics.annotation.Timed;
-
 import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +8,6 @@ import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
-//import com.tarento.vehiclemanagement.exception.ValidationException;
 
 @RequestMapping("/User")
 @RestController
