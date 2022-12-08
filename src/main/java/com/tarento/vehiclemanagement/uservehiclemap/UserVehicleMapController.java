@@ -1,13 +1,11 @@
 package com.tarento.vehiclemanagement.uservehiclemap;
 
 import com.tarento.vehiclemanagement.apiresponse.APIResponse;
-import com.tarento.vehiclemanagement.exception.NotFoundException;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.UserVehicleMap;
 import com.tarento.vehiclemanagement.uservehiclemap.service.UserVehicleMapService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,7 +15,7 @@ import java.util.List;
 @ControllerAdvice
 @RequestMapping("/userVehicleMap")
 public class UserVehicleMapController {
-    Logger logger = LoggerFactory.getLogger(Controller.class);
+    Logger logger = LoggerFactory.getLogger(UserVehicleMapController.class);
     @Autowired
     private UserVehicleMapService userVehicleMapService;
 
@@ -28,13 +26,10 @@ public class UserVehicleMapController {
         return new APIResponse(true, "200", userVehicleMapResponse);
     }
 
-    @GetMapping("/getByVehicleId/{vehicleId}")
-    public APIResponse getUserVehicleMapping(@PathVariable long vehicleId) {
+    @GetMapping("/getByVehicleId/{chassisNumber}")
+    public APIResponse getUserVehicleMapping(@Valid @PathVariable long chassisNumber) {
         logger.info("Entering getting user vehicle mapping details by vehicle ID");
-        List<UserVehicleMap> userVehicleMapList = userVehicleMapService.getUserVehicleMappingByVehicleId(vehicleId);
-        if (userVehicleMapList.isEmpty()) {
-            throw new NotFoundException("ERR002", "Mapping not found");
-        }
+        List<UserVehicleMap> userVehicleMapList = userVehicleMapService.getUserVehicleMappingByVehicleId(chassisNumber);
         return new APIResponse(true, "200", userVehicleMapList);
     }
 
@@ -46,12 +41,9 @@ public class UserVehicleMapController {
     }
 
     @GetMapping("/getByUserId/{userId}")
-    public APIResponse getUserVehicleMappingByUserId(@PathVariable long userId) {
+    public APIResponse getUserVehicleMappingByUserId(@Valid @PathVariable long userId) {
         logger.info("Entering getting user vehicle mapping details by user ID");
         List<UserVehicleMap> userVehicleMapList = userVehicleMapService.getUserVehicleMappingByUserId(userId);
-        if (userVehicleMapList.isEmpty()) {
-            throw new NotFoundException("ERR002", "Mapping not found");
-        }
         return new APIResponse(true, "200", userVehicleMapList);
     }
 

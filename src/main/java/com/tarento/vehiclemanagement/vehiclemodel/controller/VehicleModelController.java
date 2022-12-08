@@ -23,7 +23,7 @@ public class VehicleModelController {
 
     //getting particular VehicleModel record by assessmentId
     @GetMapping("/getVehicleModel/{modelId}")
-    public VehicleModel getVehicleModelById(@Valid @PathVariable Long modelId) {
+    public VehicleModel getVehicleModelById(@PathVariable Long modelId) {
         return this.vehicleModelService.getVehicleModelById(modelId);
     }
 
@@ -37,7 +37,7 @@ public class VehicleModelController {
 
     //Updating VehicleModel record by put method
     @PutMapping("/updateVehicleModel")
-    public VehicleModel updateVehicleModel(@Valid @RequestBody VehicleModel vehicleModel) {
+    public VehicleModel updateVehicleModel(@RequestBody VehicleModel vehicleModel) {
         return this.vehicleModelService.updateVehicleModel(vehicleModel);
     }
 

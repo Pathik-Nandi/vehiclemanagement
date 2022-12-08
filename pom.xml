@@ -59,11 +59,6 @@
 			<version>1.6.12</version>
 		</dependency>
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>io.astefanutti.metrics.aspectj</groupId>
 			<artifactId>metrics-aspectj</artifactId>
 			<version>1.2.0</version>

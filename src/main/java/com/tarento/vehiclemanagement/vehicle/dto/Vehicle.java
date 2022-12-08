@@ -1,9 +1,6 @@
 package com.tarento.vehiclemanagement.vehicle.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,6 +8,7 @@ import java.util.Date;
 public class Vehicle {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long vehicleId;
     private String vehicleName;
     private String vehicleType;
@@ -21,11 +19,15 @@ public class Vehicle {
     private Date updatedAt;
     private String createdBy;
     private String updatedBy;
+    @Column(name = "status")
+//    private Boolean active = true;
+    private boolean deleted = Boolean.FALSE;
+
 
     public Vehicle() {
     }
 
-    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long model_id, long chassisNumber, Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
+    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long model_id, long chassisNumber,Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
         this.vehicleId = vehicleId;
         this.vehicleName = vehicleName;
         this.vehicleType = vehicleType;

@@ -4,13 +4,13 @@ package com.tarento.vehiclemanagement.user;
 
 import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.user.service.UserService;
+import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import javax.validation.Valid;
 import javax.xml.bind.ValidationException;
 import java.util.List;
-//import com.tarento.vehiclemanagement.exception.ValidationException;
 
 @RequestMapping("/User")
 @RestController
@@ -19,6 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+//    @GetMapping("/{userId}")
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public User getUserById(@PathVariable int userId) {
         return userService.getUserById(userId);
@@ -31,10 +32,11 @@ public class UserController {
 
     @GetMapping("/getByAadhar/{aadharNum}")
     public List<User> getUserByAadhar(@RequestParam(value="aadharNum") long aadharNum) {
-       return userService.getUserByAadhar(aadharNum);
+        return userService.getUserByAadhar(aadharNum);
     }
 
     @PostMapping("/addUser")
+//    @Timed(value = "add.user",description = "Time taken to add user")
     public APIResponse addUser(@Valid @RequestBody User user) throws ValidationException {
         return new APIResponse(true, "200", userService.addUser(user));
     }
@@ -43,13 +45,8 @@ public class UserController {
         return userService.deleteUser(userId);
     }
 
-    @PutMapping("/updateUser")
-    public User updateUser(@RequestBody User user,Long aadharNum) {
-        return userService.updateUser(user,aadharNum);
-    }
-
-    @GetMapping("/findAll")
-    public Iterable<User> findAll(@RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted) {
-        return userService.findAll(isDeleted);
+    @PutMapping("/{userId}")
+    public int updateUser(@RequestBody User user, @PathVariable int userId) {
+        return userService.updateUser(user, userId);
     }
 }
