@@ -19,12 +19,6 @@ public class VehicleSpecController {
     @Autowired
     private VehicleSpecService vehicleSpecService;
 
-    //Testing controller
-    @GetMapping("/home")
-    public String home() {
-        return "This is Home Page";
-    }
-
     //getting particular VehicleSpec record by assessmentId
     @GetMapping("/getVehicleSpec/{specId}")
     public VehicleSpec getVehicleSpecById(@PathVariable Long specId) {
