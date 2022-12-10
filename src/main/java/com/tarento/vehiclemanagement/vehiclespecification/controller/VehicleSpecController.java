@@ -27,13 +27,13 @@ public class VehicleSpecController {
 
     //Adding VehicleSpec by Post method
     @PostMapping("/addVehicleSpec")
-    public String addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) throws IOException, SAXException {
+    public long addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) throws IOException, SAXException {
         return this.vehicleSpecService.addVehicleSpec(vehicleSpec);
     }
 
     //Updating VehicleSpec record by put method
     @PutMapping("/updateVehicleSpec")
-    public VehicleSpec updateVehicleMSpec(@RequestBody VehicleSpec vehicleSpec) {
+    public long updateVehicleMSpec(@RequestBody VehicleSpec vehicleSpec) {
         return this.vehicleSpecService.updateVehicleSpec(vehicleSpec);
     }
 

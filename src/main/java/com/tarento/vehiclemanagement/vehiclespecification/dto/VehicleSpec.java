@@ -1,24 +1,24 @@
 package com.tarento.vehiclemanagement.vehiclespecification.dto;
 
-import com.tarento.vehiclemanagement.audit.Auditable;
 import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.xml.transform.Source;
+import java.util.Date;
 
 @Entity
 public class VehicleSpec {
     @Id
     private long specId;
-//    @NotEmpty(message = "vehicleRPM must not be blank")
+    @NotEmpty(message = "vehicleRPM must not be blank")
     private long vehicleRpm;
-//    @NotEmpty(message = "fuelCap must not be blank")
+    @NotEmpty(message = "fuelCap must not be blank")
     private String fuelCap;
-//    @NotEmpty(message = "engineCap must not be blank")
+    @NotEmpty(message = "engineCap must not be blank")
     private String engineCap;
     @Min(1)
     @Max(99)
@@ -26,6 +26,13 @@ public class VehicleSpec {
     @Min(101)
     @Max(999)
     private long modelId;
+    private Date createdAt;
+    private Date updatedAt;
+    private String createdBy;
+    private String updatedBy;
+    @Column(name = "status")
+//    private Boolean active = true;
+    private boolean deleted = Boolean.FALSE;
 
     public VehicleSpec() {
 
