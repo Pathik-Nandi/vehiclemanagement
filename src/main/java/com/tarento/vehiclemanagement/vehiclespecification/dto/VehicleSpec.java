@@ -35,18 +35,60 @@ public class VehicleSpec {
     private boolean deleted = Boolean.FALSE;
 
     public VehicleSpec() {
-
     }
-
-    public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId) {
+    public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId, Date createdAt, Date updatedAt, String createdBy, String updatedBy, boolean deleted) {
         this.specId = specId;
         this.vehicleRpm = vehicleRpm;
         this.fuelCap = fuelCap;
         this.engineCap = engineCap;
         this.mileage = mileage;
         this.modelId = modelId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
+        this.deleted = deleted;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
     public long getSpecId() {
         return specId;
     }
@@ -96,29 +138,20 @@ public class VehicleSpec {
     }
 
     @Override
-    @JavaDispatcher.Container
     public String toString() {
         return "VehicleSpec{" +
                 "specId=" + specId +
-                ", vRPM=" + vehicleRpm +
+                ", vehicleRpm=" + vehicleRpm +
                 ", fuelCap='" + fuelCap + '\'' +
                 ", engineCap='" + engineCap + '\'' +
                 ", mileage='" + mileage + '\'' +
                 ", modelId=" + modelId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
-
-//    @Override
-//    public String getSystemId() {
-//        return null;
-//    }
-//
-//    @Override
-//    public void setSystemId(String systemId) {
-//    }
-//
-//    @Override
-//    public boolean isEmpty() {
-//        return Source.super.isEmpty();
-//    }
 }
+
