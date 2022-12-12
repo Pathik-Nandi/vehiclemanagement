@@ -18,5 +18,4 @@ public interface VehicleSpecDao extends JpaRepository<VehicleSpec, Long> {
     @Query(value = "update vehicle set status=0 where vehicle_id=?1",nativeQuery = true)
     public void softDelete(long specId);
 
-    Long getSpecId();
 }

@@ -31,7 +31,7 @@ public class VehicleSpecController {
 
     //Updating VehicleSpec record by put method
     @PutMapping("/updateVehicleSpec")
-    public long updateVehicleMSpec(@RequestBody VehicleSpec vehicleSpec) {
+    public VehicleSpec updateVehicleMSpec(@RequestBody VehicleSpec vehicleSpec) {
         return this.vehicleSpecService.updateVehicleSpec(vehicleSpec);
     }
 

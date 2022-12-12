@@ -14,7 +14,7 @@ public interface VehicleSpecService {
 
     public VehicleSpec getVehicleModelById(long specId);
 
-    public String addVehicleSpec(VehicleSpec vehicleSpec) throws IOException, SAXException;
+    public long addVehicleSpec(VehicleSpec vehicleSpec);
 
     public VehicleSpec updateVehicleSpec(VehicleSpec vehicleSpec);
 
