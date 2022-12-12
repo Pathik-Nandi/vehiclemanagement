@@ -1,18 +1,13 @@
 package com.tarento.vehiclemanagement.vehiclespecification.controller;
 
-//import com.tarento.demo.dto.VehicleSpec;
-//import com.tarento.demo.service.VehicleSpecService;
-
 import com.tarento.vehiclemanagement.vehiclespecification.dto.VehicleSpec;
 import com.tarento.vehiclemanagement.vehiclespecification.service.VehicleSpecService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.xml.sax.SAXException;
 
 import javax.validation.Valid;
-import java.io.IOException;
 
 @RestController
 public class VehicleSpecController {
@@ -27,7 +22,7 @@ public class VehicleSpecController {
 
     //Adding VehicleSpec by Post method
     @PostMapping("/addVehicleSpec")
-    public long addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) throws IOException, SAXException {
+    public long addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec){
         return this.vehicleSpecService.addVehicleSpec(vehicleSpec);
     }
 

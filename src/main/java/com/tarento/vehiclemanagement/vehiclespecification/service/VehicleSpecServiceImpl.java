@@ -19,15 +19,6 @@ public class VehicleSpecServiceImpl implements VehicleSpecService {
     @Autowired
     private VehicleSpecDao vehicleSpecDao;
 
-    @Override
-    public List<VehicleSpec> getVehicleSpec() {
-        return null;
-    }
-
-    @Override
-    public List<VehicleSpec> findVehicleByspecId(long specId) {
-        return null;
-    }
 
     @Override
     public List<VehicleSpec> findByspecId(long specId) {

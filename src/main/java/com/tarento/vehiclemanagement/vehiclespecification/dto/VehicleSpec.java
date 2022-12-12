@@ -1,7 +1,5 @@
 package com.tarento.vehiclemanagement.vehiclespecification.dto;
 
-import net.bytebuddy.utility.dispatcher.JavaDispatcher;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -31,9 +29,7 @@ public class VehicleSpec {
     private String createdBy;
     private String updatedBy;
     @Column(name = "status")
-//    private Boolean active = true;
     private boolean deleted = Boolean.FALSE;
-
     public VehicleSpec() {
     }
     public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId, Date createdAt, Date updatedAt, String createdBy, String updatedBy, boolean deleted) {

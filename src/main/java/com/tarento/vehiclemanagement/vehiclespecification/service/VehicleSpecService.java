@@ -6,11 +6,7 @@ import java.util.List;
 
 @Service
 public interface VehicleSpecService {
-    public List<VehicleSpec> getVehicleSpec();
-
-    List<VehicleSpec> findVehicleByspecId(long specId);
-
-    List<VehicleSpec> findByspecId(long specId);
+     List<VehicleSpec> findByspecId(long specId);
 
     public VehicleSpec getVehicleModelById(long specId);
     public long addVehicleSpec(VehicleSpec vehicleSpec);
