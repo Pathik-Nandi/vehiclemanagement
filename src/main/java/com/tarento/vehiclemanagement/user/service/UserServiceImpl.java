@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
         Long aadharNum = user.getAadharNum();
         List<User> aadharNameList = getUserByAadhar(aadharNum);
         String userName = user.getUserName();
-        String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
-        user.setUserName(titleCase);
+//        String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
+//        user.setUserName(titleCase);
         if (aadharNameList.size() > 0) {
             throw new CustomException("ERR001", "This aadhar num exists");
         }
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getUserByName(String userName) {
         List<User> userList=userDao.findByuserName(userName);
         if(userList.isEmpty() || userList.get(0).isDeleted() == true){
-            throw new ValidationException("404","User name does't exist");
+            throw new ValidationException("404","User name doesn't exist");
         }
         return userDao.findByuserName(userName);
    }
@@ -64,7 +64,7 @@ public class UserServiceImpl implements UserService {
    public List<User> getUserByAadhar(Long aadharNum) {
         List<User> aadharList =  userDao.findByaadharNum(aadharNum);
         if(aadharList.isEmpty()){
-            throw new ValidationException("404","Aadhar num doesnt exists");
+            throw new ValidationException("404","Aadhar num doesn't exists");
         }
        return userDao.findByaadharNum(aadharNum);
     }
