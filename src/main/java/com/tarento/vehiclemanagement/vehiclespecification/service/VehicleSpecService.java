@@ -13,9 +13,14 @@ public interface VehicleSpecService {
     List<VehicleSpec> findByspecId(long specId);
 
     public VehicleSpec getVehicleModelById(long specId);
+
     public long addVehicleSpec(VehicleSpec vehicleSpec);
-    public long updateVehicleSpec(VehicleSpec vehicleSpec);
+
+    public VehicleSpec updateVehicleSpec(VehicleSpec vehicleSpec);
+
     public void deleteVehicleSpec(long specId);
+
+
 }
 
 

@@ -51,4 +51,14 @@ public class ExceptionHandler {
         return error;
     }
 
+    @ResponseBody
+    @org.springframework.web.bind.annotation.ExceptionHandler(ValidationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ValidationError onBusinessValidationException(ValidationException ex) {
+        ValidationError error = new ValidationError();
+        ex.getErrorCodes().forEach(businessValidationError -> error.getErrors().add(businessValidationError));
+        error.setType("BusinessValidationError");
+        return error;
+    }
+
 }

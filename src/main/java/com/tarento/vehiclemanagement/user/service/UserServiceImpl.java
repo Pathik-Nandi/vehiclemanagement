@@ -1,19 +1,19 @@
 package com.tarento.vehiclemanagement.user.service;
-
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.BreakIterator;
 import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.user.data.UserDao;
 import com.tarento.vehiclemanagement.user.dto.User;
+import org.hibernate.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
-
+import org.hibernate.Session;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
 
+import javax.persistence.EntityManager;
 
 
 @Component
@@ -22,6 +22,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private EntityManager entityManager;
 
 
     @Override
@@ -31,37 +33,46 @@ public class UserServiceImpl implements UserService {
         Long aadharNum = user.getAadharNum();
         List<User> aadharNameList = getUserByAadhar(aadharNum);
         String userName = user.getUserName();
-        Pattern regex = Pattern.compile("[{$&+,:;=\\?@#|/'<>.^*()%!-_}]");
         String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
         user.setUserName(titleCase);
-        if (aadharNameList.size() > 0) {
-            throw new ValidationException("ERR001", "This aadhar num exists");
-        } else if (regex.matcher(userName).find()) {
-            throw new ValidationException("400", "Special Characters not allowed.");
+        if (!aadharNameList.isEmpty()) {
+            throw new CustomException("ERR001", "This aadhar num exists");
         }
-//        List usernameList=getUserByName(userName);
-//        if (usernameList.size()>0){
-//            return "User already exist";
-//        }
-        userDao.save(user);
+        else
+
+            userDao.save(user);
         return user;
     }
 
     @Override
     public User getUserById(long userId) {
-        Optional<User> idlist = userDao.findById(userId);
-        return idlist.get();
+        Optional<User> idlist = Optional.ofNullable(userDao.findById(userId).orElseThrow(() -> new CustomException("404", "USER ID not found.")));
+        User user = null;
+        if (idlist.isPresent()) {
+            user = idlist.get();
+        }
+        return user;
     }
+
 
     @Override
     public List<User> getUserByName(String userName) {
+        List<User> userList=userDao.findByuserName(userName);
+        if(userList.isEmpty() || userList.get(0).isDeleted()){
+            throw new ValidationException("404","User name does't exist");
+        }
         return userDao.findByuserName(userName);
     }
 
     @Override
     public List<User> getUserByAadhar(Long aadharNum) {
+        List<User> aadharList =  userDao.findByaadharNum(aadharNum);
+        if(aadharList.isEmpty()){
+            throw new ValidationException("404","Aadhar num doesnt exists");
+        }
         return userDao.findByaadharNum(aadharNum);
     }
+
 
     @Override
     public long deleteUser(long userId) {
@@ -70,9 +81,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateUser(User user, int userId) {
+    public User updateUser(User user,Long aadharNum) {
+        List<User> aadharList =  userDao.findByaadharNum(aadharNum);
+        if(aadharList.isEmpty()){
+            throw new ValidationException("404","Aadhar num doesnt exists");
+        }
         userDao.save(user);
-        return 1;
+        return user;
+    }
+
+    public Iterable<User> findAll(boolean isDeleted){
+        Session session = entityManager.unwrap(Session.class);
+        Filter filter = session.enableFilter("deletedProductFilter");
+        filter.setParameter("isDeleted", isDeleted);
+        Iterable<User> user =  userDao.findAll();
+        session.disableFilter("deletedProductFilter");
+        return user;
     }
 }
-

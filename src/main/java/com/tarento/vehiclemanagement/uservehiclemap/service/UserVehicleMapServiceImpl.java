@@ -3,7 +3,6 @@ package com.tarento.vehiclemanagement.uservehiclemap.service;
 import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.NotFoundException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
-import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.user.service.UserService;
 import com.tarento.vehiclemanagement.uservehiclemap.data.UserVehicleMapDao;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.UserVehicleMap;
@@ -51,21 +50,29 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
         if (findByUserIdAndVehicleId(userVehicleMap).isPresent()) {
             throw new CustomException("Err00", "Mapping already present");
         }
-        User user = userService.getUserById(userVehicleMap.getUserId());
-//        if (user == null){
-//            throw new CustomException("Err06","User doesn't exist");
-//        }
-        if (vehicleService.fetchVehicle(userVehicleMap.getUserId()).isEmpty()) {
-            throw new CustomException("Err07", "Vehicle doesn't exist");
+        userService.getUserById(userVehicleMap.getUserId());
+        Optional<Vehicle> vehicleOptional=vehicleService.fetchVehicle(userVehicleMap.getVehicleId());
+        long chassisnumber = 0;
+        if(vehicleOptional.isPresent()){
+            chassisnumber=vehicleOptional.get().getChassisNumber();
         }
-        List<UserVehicleMap> userVehicleMapList = getUserVehicleMappingByVehicleId(userVehicleMap.getVehicleId());
+        List<UserVehicleMap> userVehicleMapList = getUserVehicleMappingByVehicleId(chassisnumber);
         if (userVehicleMapList.size() >= maplimit) {
             throw new CustomException("ERR001", "Mapping limit reached");
         } else {
             Optional<Vehicle> vehicle = vehicleRepo.findById(userVehicleMap.getVehicleId());
-            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicle.get().getModel_id());
-            Date manufactureDate = vehicleModel.get().getDateOfManufacture();
-            System.out.println(manufactureDate);
+            Vehicle vehicleObj=null;
+            if (vehicle.isPresent()){
+                vehicleObj=vehicle.get();
+            }
+            assert vehicleObj != null;
+            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicleObj.getModelId());
+            VehicleModel vehicleModelObj=null;
+            if(vehicleModel.isPresent()){
+                vehicleModelObj=vehicleModel.get();
+            }
+            assert vehicleModelObj != null;
+            Date manufactureDate = vehicleModelObj.getDateOfManufacture();
             int manufactureYear;
             try {
                 Calendar calendar = Calendar.getInstance();
@@ -91,7 +98,6 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
             throw new NotFoundException("ERR002", "Mapping not found");
         }
         return userVehicleMapList;
-//        return userVehicleMapDao.findByUserId(userId);
     }
 
     @Override
@@ -103,7 +109,6 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
             throw new NotFoundException("ERR002", "Mapping not found");
         }
         return userVehicleMapList;
-//        return userVehicleMapDao.findByVehicleId(vehicleId);
     }
 
     @Override

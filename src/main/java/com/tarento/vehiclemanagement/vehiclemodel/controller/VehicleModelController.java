@@ -32,7 +32,6 @@ public class VehicleModelController {
     public APIResponse addVehicleModel(@Valid @RequestBody VehicleModel vehicleModel) {
 
         return new APIResponse(true, "200", vehicleModelService.addVehicleModel(vehicleModel));
-        //return this.vehicleModelService.addVehicleModel(vehicleModel);
     }
 
     //Updating VehicleModel record by put method
@@ -48,13 +47,4 @@ public class VehicleModelController {
         return vehicleModelService.deleteVehicleModel(modelId);
     }
 }
-//    {
-//        try {
-//            this.vehicleModelService.deleteVehicleModel(Long.parseLong(((modelId))));
-//            return new ResponseEntity<>(HttpStatus.OK);
-//
-//        }catch (Exception e){
-//            return  new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
-//}
+
