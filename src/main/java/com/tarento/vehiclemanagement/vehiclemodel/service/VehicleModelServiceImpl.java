@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Scope("prototype")
 @Component
@@ -24,7 +25,12 @@ public class VehicleModelServiceImpl implements VehicleModelService {
 
     @Override
     public VehicleModel getVehicleModelById(long modelId) {
-        return vehicleModelDao.findById(modelId).get();
+        Optional<VehicleModel> vehicleModel=vehicleModelDao.findById(modelId);
+        VehicleModel vehicleModelObj=null;
+        if(vehicleModel.isPresent()){
+            vehicleModelObj=vehicleModel.get();
+        }
+        return vehicleModelObj;
     }
 
     @Override

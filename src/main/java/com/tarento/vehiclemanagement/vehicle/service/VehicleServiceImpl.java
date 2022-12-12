@@ -20,9 +20,8 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     @Transactional
     public long addVehicle(Vehicle vehicle) {
-//        List<Vehicle> vehicleList = findBychassisNumber(vehicle.getChassisNumber());
         if (vehicleDao.findBychassisNumber(vehicle.getChassisNumber()).isEmpty()){
-            if (vehicleModelDao.findById(vehicle.getModel_id()).isPresent()){
+            if (vehicleModelDao.findById(vehicle.getModelId()).isPresent()){
                 return vehicleDao.save(vehicle).getVehicleId();
             }
             else{
@@ -53,7 +52,7 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<Vehicle> findVehicleBychassisNumber(long chassisNumber) {
         List<Vehicle> chassislist = vehicleDao.findBychassisNumber(chassisNumber);
-        if (chassislist.size() > 0) {
+        if (!chassislist.isEmpty()) {
             return vehicleDao.findBychassisNumber(chassisNumber);
         } else {
             throw new NotFoundException("404", "chassisnumber doesn't exists");

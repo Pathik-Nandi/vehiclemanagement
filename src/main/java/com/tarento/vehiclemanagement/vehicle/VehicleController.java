@@ -18,7 +18,6 @@ public class VehicleController {
 
     @PostMapping("/add")
     public APIResponse addVehicle(@Valid @RequestBody Vehicle vehicle) {
-        System.out.println("");
         long vehicleId = vehicleService.addVehicle(vehicle);
         return new APIResponse(true, "200", vehicleId);
     }

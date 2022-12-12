@@ -1,14 +1,11 @@
 package com.tarento.vehiclemanagement.vehiclespecification.dto;
 
-import com.tarento.vehiclemanagement.audit.Auditable;
 import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.xml.transform.Source;
 
 @Entity
 public class VehicleSpec {
@@ -100,18 +97,4 @@ public class VehicleSpec {
                 ", modelId=" + modelId +
                 '}';
     }
-
-//    @Override
-//    public String getSystemId() {
-//        return null;
-//    }
-//
-//    @Override
-//    public void setSystemId(String systemId) {
-//    }
-//
-//    @Override
-//    public boolean isEmpty() {
-//        return Source.super.isEmpty();
-//    }
 }
