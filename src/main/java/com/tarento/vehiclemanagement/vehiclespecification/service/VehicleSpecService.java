@@ -8,7 +8,6 @@ import java.io.IOException;
 
 @Service
 public interface VehicleSpecService {
-    //        public List<VehicleSpec> getVehicleSpec();
     public VehicleSpec getVehicleModelById(long specId);
 
     public String addVehicleSpec(VehicleSpec vehicleSpec) throws IOException, SAXException;

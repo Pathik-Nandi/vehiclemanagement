@@ -50,6 +50,7 @@ public class ExceptionHandler {
         error.setType("BusinessValidationError");
         return error;
     }
+
     @ResponseBody
     @org.springframework.web.bind.annotation.ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

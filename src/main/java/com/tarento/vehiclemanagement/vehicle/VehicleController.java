@@ -18,7 +18,6 @@ public class VehicleController {
 
     @PostMapping("/add")
     public APIResponse addVehicle(@Valid @RequestBody Vehicle vehicle) {
-        System.out.println("");
         long vehicleId = vehicleService.addVehicle(vehicle);
         return new APIResponse(true, "200", vehicleId);
     }
@@ -35,6 +34,11 @@ public class VehicleController {
 
     @GetMapping("/findByChassisNumber/{chassisNumber}")
     public List<Vehicle> findBychassisNumber(@PathVariable long chassisNumber) {
-        return vehicleService.findBychassisNumber(chassisNumber);
+        return vehicleService.findVehicleBychassisNumber(chassisNumber);
+    }
+    @PostMapping("/update")
+    public APIResponse updateVehicle(@Valid @RequestBody Vehicle vehicle){
+        long chassisNumber = vehicleService.updateVehicle(vehicle);
+        return new APIResponse(true,"200",chassisNumber);
     }
 }

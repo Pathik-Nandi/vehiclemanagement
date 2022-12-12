@@ -1,6 +1,5 @@
 package com.tarento.vehiclemanagement.vehiclemodel.service;
 
-import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
 import com.tarento.vehiclemanagement.vehiclemodel.dto.VehicleModel;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Scope("prototype")
 @Component
@@ -25,7 +25,12 @@ public class VehicleModelServiceImpl implements VehicleModelService {
 
     @Override
     public VehicleModel getVehicleModelById(long modelId) {
-        return vehicleModelDao.findById(modelId).get();
+        Optional<VehicleModel> vehicleModel=vehicleModelDao.findById(modelId);
+        VehicleModel vehicleModelObj=null;
+        if(vehicleModel.isPresent()){
+            vehicleModelObj=vehicleModel.get();
+        }
+        return vehicleModelObj;
     }
 
     @Override
@@ -33,7 +38,7 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     public VehicleModel addVehicleModel(VehicleModel vehicleModel) {
         vehicleModelDao.save(vehicleModel);
         if (vehicleModel.getModelName().isEmpty()) {
-            throw new CustomException("400", "null value");
+            throw new ValidationException("400", "null value");
         }
         return vehicleModel;
     }

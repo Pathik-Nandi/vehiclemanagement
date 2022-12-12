@@ -1,7 +1,5 @@
 package com.tarento.vehiclemanagement.vehiclespecification.controller;
 
-//import com.tarento.demo.dto.VehicleSpec;
-//import com.tarento.demo.service.VehicleSpecService;
 
 import com.tarento.vehiclemanagement.vehiclespecification.dto.VehicleSpec;
 import com.tarento.vehiclemanagement.vehiclespecification.service.VehicleSpecService;

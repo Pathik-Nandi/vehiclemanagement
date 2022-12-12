@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.user;
 
+
 import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @GetMapping("/{userId}")
     public User getUserById(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
@@ -28,7 +29,7 @@ public class UserController {
 
     @GetMapping("/getByAadhar/{aadharNum}")
     public List<User> getUserByAadhar(@RequestParam(value="aadharNum") long aadharNum) {
-       return userService.getUserByAadhar(aadharNum);
+        return userService.getUserByAadhar(aadharNum);
     }
 
     @PostMapping("/addUser")
@@ -50,3 +51,4 @@ public class UserController {
         return userService.findAll(isDeleted);
     }
 }
+

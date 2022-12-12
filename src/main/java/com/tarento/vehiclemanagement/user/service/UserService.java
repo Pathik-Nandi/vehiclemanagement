@@ -2,9 +2,9 @@ package com.tarento.vehiclemanagement.user.service;
 
 import com.tarento.vehiclemanagement.user.dto.User;
 
-
 import javax.xml.bind.ValidationException;
 import java.util.List;
+
 
 
 public interface UserService {
@@ -24,5 +24,6 @@ public interface UserService {
     public Iterable<User> findAll(boolean isDeleted);
 
 }
+
 
 

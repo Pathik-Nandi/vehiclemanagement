@@ -7,11 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
 import javax.validation.Validator;
 import java.io.IOException;
-import java.util.Set;
+import java.util.Optional;
 
 @Component
 public class VehicleSpecServiceImpl implements VehicleSpecService {
@@ -20,27 +18,20 @@ public class VehicleSpecServiceImpl implements VehicleSpecService {
 
     @Autowired
     private VehicleSpecDao vehicleSpecDao;
-//    @Override
-//    public List<VehicleSpec> getVehicleModel() {
-//        return vehicleSpecDao.findAll();
-//    }
 
     @Override
     public VehicleSpec getVehicleModelById(long specId) {
-        return vehicleSpecDao.findById(specId).get();
+        Optional<VehicleSpec> vehicleSpec=vehicleSpecDao.findById(specId);
+        VehicleSpec vehicleSpecObj=null;
+        if(vehicleSpec.isPresent()){
+            vehicleSpecObj=vehicleSpec.get();
+        }
+        return vehicleSpecObj;
     }
 
     @Override
     public String addVehicleSpec(VehicleSpec vehicleSpec) throws IOException, SAXException {
-//        Set<ConstraintViolation<VehicleSpec>> violations = null;
-//        validator.validate(vehicleSpec);
-//        if (!violations.isEmpty()) {
-//            StringBuilder sb = new StringBuilder();
-//            for (ConstraintViolation<VehicleSpec> constraintViolation : violations) {
-//                sb.append(constraintViolation.getMessage());
-//            }
-//            throw new ConstraintViolationException("Error occurred" + sb.toString(), violations);
-//        }
+
         vehicleSpecDao.save(vehicleSpec);
         return "VehicleModel for " + vehicleSpec.getSpecId() + " Added!";
     }
@@ -53,8 +44,13 @@ public class VehicleSpecServiceImpl implements VehicleSpecService {
 
     @Override
     public void deleteVehicleSpec(long specId) {
-        VehicleSpec entity = vehicleSpecDao.getOne(specId);
-        vehicleSpecDao.delete(entity);
+        Optional<VehicleSpec> entity = vehicleSpecDao.findById(specId);
+        VehicleSpec vehicleSpec = null;
+        if (entity.isPresent()) {
+            vehicleSpec = entity.get();
+        }
+        assert vehicleSpec != null;
+        vehicleSpecDao.delete(vehicleSpec);
     }
 }
 
