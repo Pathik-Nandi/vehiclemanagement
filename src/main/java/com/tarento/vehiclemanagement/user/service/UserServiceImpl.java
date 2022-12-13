@@ -31,15 +31,11 @@ public class UserServiceImpl implements UserService {
     public User addUser(User user) {
 
         Long aadharNum = user.getAadharNum();
-        List<User> aadharNameList = getUserByAadhar(aadharNum);
-        String userName = user.getUserName();
-        String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
-        user.setUserName(titleCase);
+        List<User> aadharNameList = userDao.findByaadharNum(aadharNum);
         if (!aadharNameList.isEmpty()) {
             throw new CustomException("ERR001", "This aadhar num exists");
         }
         else
-
             userDao.save(user);
         return user;
     }
@@ -73,29 +69,25 @@ public class UserServiceImpl implements UserService {
         return userDao.findByaadharNum(aadharNum);
     }
 
-
     @Override
-    public long deleteUser(long userId) {
-        userDao.deleteById(userId);
-        return userId;
-    }
 
-    @Override
-    public User updateUser(User user,Long aadharNum) {
-        List<User> aadharList =  userDao.findByaadharNum(aadharNum);
+    public User updateUser(User user) {
+        Long aadharNum = user.getAadharNum();
+        List<User> aadharList = userDao.findByaadharNum(aadharNum);
         if(aadharList.isEmpty()){
-            throw new ValidationException("404","Aadhar num doesnt exists");
+            userDao.save(user);
+            return user;
         }
-        userDao.save(user);
-        return user;
+        throw new ValidationException("404","Aadhar num already exists");
+
     }
 
-    public Iterable<User> findAll(boolean isDeleted){
+    public Iterable<User> deleteUser(boolean isDeleted){
         Session session = entityManager.unwrap(Session.class);
-        Filter filter = session.enableFilter("deletedProductFilter");
+        Filter filter = session.enableFilter("deleted User");
         filter.setParameter("isDeleted", isDeleted);
         Iterable<User> user =  userDao.findAll();
-        session.disableFilter("deletedProductFilter");
+        session.disableFilter("deleted User");
         return user;
     }
 }
