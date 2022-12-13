@@ -3,6 +3,7 @@ package com.tarento.vehiclemanagement.vehiclemodel.controller;
 import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import com.tarento.vehiclemanagement.vehiclemodel.dto.VehicleModel;
 import com.tarento.vehiclemanagement.vehiclemodel.service.VehicleModelService;
+import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ public class VehicleModelController {
 
     //getting All VehicleModel record by get method
     @GetMapping("/getAllVehicleModel")
+    @Timed(value = "greeting.time", description = "Time taken to return greeting")
     public List<VehicleModel> getAllVehicleModel() {
         return vehicleModelService.getVehicleModel();
     }
@@ -29,6 +31,7 @@ public class VehicleModelController {
 
     //Adding VehicleModel by Post method
     @PostMapping("/addVehicleModel")
+    @Timed(value = "greeting.time", description = "Time taken to return greeting")
     public APIResponse addVehicleModel(@Valid @RequestBody VehicleModel vehicleModel) {
 
         return new APIResponse(true, "200", vehicleModelService.addVehicleModel(vehicleModel));
