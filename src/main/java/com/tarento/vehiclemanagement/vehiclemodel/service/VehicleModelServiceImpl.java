@@ -1,18 +1,13 @@
 package com.tarento.vehiclemanagement.vehiclemodel.service;
-
 import com.tarento.vehiclemanagement.exception.CustomException;
-import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
 import com.tarento.vehiclemanagement.vehiclemodel.dto.VehicleModel;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-//@Scope("prototype")
 @Component
 public class VehicleModelServiceImpl implements VehicleModelService {
 
@@ -56,7 +51,7 @@ public class VehicleModelServiceImpl implements VehicleModelService {
 
     @Override
     public long deleteVehicleModel(long modelId) {
-        vehicleModelDao.softDelete(modelId);
+        vehicleModelDao.delete(modelId);
         return modelId;
     }
 }

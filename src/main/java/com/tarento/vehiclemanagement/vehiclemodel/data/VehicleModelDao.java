@@ -9,10 +9,9 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 
 @Repository
-//@ControllerAdvice
 public interface VehicleModelDao extends JpaRepository<VehicleModel, Long> {
     @Modifying
     @Transactional
     @Query(value = "UPDATE vehicle_model set status=0 where model_Id=?1",nativeQuery = true)
-    public int softDelete(long modelId);
+    public int delete(long modelId);
 }
