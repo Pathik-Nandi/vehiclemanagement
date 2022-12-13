@@ -47,42 +47,42 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
 
     @Override
     public UserVehicleMap adduserVehicleMapping(UserVehicleMap userVehicleMap) {
-        if (findByUserIdAndVehicleId(userVehicleMap).isPresent()) {
-            throw new CustomException("Err00", "Mapping already present");
-        }
+//        checking if user with ID exists or not(calling getUserById from userService)
         userService.getUserById(userVehicleMap.getUserId());
-        Optional<Vehicle> vehicleOptional=vehicleService.fetchVehicle(userVehicleMap.getVehicleId());
+
+//        checking if vehicle with ID is present(calling fetchVehicle from vehicleService)
+        Optional<Vehicle> vehicleOptional = vehicleService.fetchVehicle(userVehicleMap.getVehicleId());
         long chassisnumber = 0;
-        if(vehicleOptional.isPresent()){
-            chassisnumber=vehicleOptional.get().getChassisNumber();
+        Vehicle vehicleObj = null;
+        if (vehicleOptional.isPresent()) {
+            chassisnumber = vehicleOptional.get().getChassisNumber();
+            vehicleObj = vehicleOptional.get();
         }
+
+//        getting list of mappings by passing chassis number
         List<UserVehicleMap> userVehicleMapList = getUserVehicleMappingByVehicleId(chassisnumber);
+
+//      checking if mapping is already present
+        for (UserVehicleMap userVehicleMapListObj : userVehicleMapList) {
+            if (userVehicleMapListObj.getUserId() == userVehicleMap.getUserId()) {
+                throw new CustomException("Err00", "Mapping already present");
+            }
+        }
+
+//        checking if map limit is exceeded
         if (userVehicleMapList.size() >= maplimit) {
             throw new CustomException("ERR001", "Mapping limit reached");
         } else {
-            Optional<Vehicle> vehicle = vehicleRepo.findById(userVehicleMap.getVehicleId());
-            Vehicle vehicleObj=null;
-            if (vehicle.isPresent()){
-                vehicleObj=vehicle.get();
-            }
+//          getting vehicle model by passing model ID(using find by Id from vehicle Repo)
             assert vehicleObj != null;
             Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicleObj.getModelId());
-            VehicleModel vehicleModelObj=null;
-            if(vehicleModel.isPresent()){
-                vehicleModelObj=vehicleModel.get();
+            VehicleModel vehicleModelObj = null;
+            if (vehicleModel.isPresent()) {
+                vehicleModelObj = vehicleModel.get();
             }
             assert vehicleModelObj != null;
             Date manufactureDate = vehicleModelObj.getDateOfManufacture();
-            int manufactureYear;
-            try {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(manufactureDate);
-                manufactureYear = calendar.get(Calendar.YEAR);
-
-            } catch (Exception ex) {
-                throw new ValidationException("Err5", "Incorrect date limit provided");
-            }
-
+            int manufactureYear = findYear(manufactureDate);
             if (manufactureYear < yearLimit) {
                 throw new CustomException("ERR003", "Did not meet year requirements ");
             }
@@ -90,6 +90,7 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
             return userVehicleMap;
         }
     }
+
 
     @Override
     public List<UserVehicleMap> getUserVehicleMappingByUserId(long userId) {
@@ -121,6 +122,20 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
     @Override
     public Optional<UserVehicleMap> findByUserIdAndVehicleId(UserVehicleMap userVehicleMap) {
         return userVehicleMapDao.findByUserIdAndVehicleId(userVehicleMap.getUserId(), userVehicleMap.getVehicleId());
+    }
+
+//  method for finding year from the date
+    public int findYear(Date date) {
+        int manufactureYear;
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            manufactureYear = calendar.get(Calendar.YEAR);//date util
+
+        } catch (Exception ex) {
+            throw new ValidationException("Err5", "Incorrect date limit provided");
+        }
+        return manufactureYear;
     }
 }
 
