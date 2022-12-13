@@ -7,7 +7,6 @@ import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +30,6 @@ public class VehicleServiceImpl implements VehicleService {
             throw new NotFoundException("Err07", "Vehicle already exists with this chassis number");
         }
     }
-
     @Override
     public void deleteVehicle(long vehicleId) {
         if (vehicleDao.existsById(vehicleId)) {
@@ -40,7 +38,6 @@ public class VehicleServiceImpl implements VehicleService {
             throw new NotFoundException("404", "Vehicle id" + " " + +vehicleId + " " + "doesn't exists");
         }
     }
-
     @Override
     public long updateVehicle(Vehicle vehicle) {
         if (vehicleDao.findById(vehicle.getVehicleId()).isPresent()) {
@@ -59,7 +56,6 @@ public class VehicleServiceImpl implements VehicleService {
             throw new NotFoundException("404", "chassisnumber doesn't exists");
         }
     }
-
     @Override
     public Vehicle fetchVehicle(long vehicleId) {
         Optional<Vehicle> vehicle = vehicleDao.findById(vehicleId);
