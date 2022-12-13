@@ -14,8 +14,8 @@ import java.sql.Date;
 @Entity
 @Table(name = "user", schema = "Vehiclemanagement")
 @SQLDelete(sql = "UPDATE Vehiclemanagement.user SET deleted = true WHERE user_id=?")
-@FilterDef(name = "deletedProductFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
-@Filter(name = "deletedProductFilter", condition = "deleted = :isDeleted")
+@FilterDef(name = "deleted User", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deleted User", condition = "deleted = :isDeleted")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +32,6 @@ public class User implements Serializable {
     private Date createdAt;
     private String createdBy;
     private Date updatedAt;
-
     private String updatedBy;
 
     private boolean deleted = Boolean.FALSE;

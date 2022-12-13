@@ -36,19 +36,15 @@ public class UserController {
     public APIResponse addUser(@Valid @RequestBody User user) throws ValidationException {
         return new APIResponse(true, "200", userService.addUser(user));
     }
-    @DeleteMapping("/{userId}")
-    public long deleteUser(@RequestBody long userId) {
-        return userService.deleteUser(userId);
-    }
 
     @PutMapping("/updateUser")
-    public User updateUser(@RequestBody User user,Long aadharNum) {
-        return userService.updateUser(user,aadharNum);
+    public User updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
 
-    @GetMapping("/findAll")
-    public Iterable<User> findAll(@RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted) {
-        return userService.findAll(isDeleted);
+    @GetMapping("/deleteUser")
+    public Iterable<User> deleteUser(@RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted) {
+        return userService.deleteUser(isDeleted);
     }
 }
 
