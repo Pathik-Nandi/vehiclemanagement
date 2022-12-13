@@ -16,12 +16,12 @@ public interface UserService {
 
     public List<User> getUserByAadhar(Long aadharNum);
 
+//
+//    public long deleteUser(long userId);
 
-    public long deleteUser(long userId);
+    public User updateUser(User user);
 
-    public User updateUser(User user,Long aadharNum);
-
-    public Iterable<User> findAll(boolean isDeleted);
+    public Iterable<User> deleteUser(boolean isDeleted);
 
 }
 
