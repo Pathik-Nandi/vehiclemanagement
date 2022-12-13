@@ -42,9 +42,10 @@ public class UserController {
         return userService.updateUser(user);
     }
 
-    @GetMapping("/deleteUser")
-    public Iterable<User> deleteUser(@RequestParam(value = "isDeleted", required = false, defaultValue = "false") boolean isDeleted) {
-        return userService.deleteUser(isDeleted);
+    @GetMapping("/deleteUser/{aadharNum}")
+    public void deleteUser(@PathVariable Long aadharNum) {
+         userService.deleteUser(aadharNum);
     }
+
 }
 

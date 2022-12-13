@@ -13,10 +13,7 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "user", schema = "Vehiclemanagement")
-@SQLDelete(sql = "UPDATE Vehiclemanagement.user SET deleted = true WHERE user_id=?")
-@FilterDef(name = "deleted User", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
-@Filter(name = "deleted User", condition = "deleted = :isDeleted")
-public class User implements Serializable {
+public class User {
 
     private static final long serialVersionUID = 1L;
 

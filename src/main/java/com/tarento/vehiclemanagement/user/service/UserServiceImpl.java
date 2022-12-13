@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getUserByAadhar(Long aadharNum) {
+    public List<User> getUserByAadhar(long aadharNum) {
         List<User> aadharList =  userDao.findByaadharNum(aadharNum);
         if(aadharList.isEmpty()){
             throw new ValidationException("404","Aadhar num doesnt exists");
@@ -81,13 +81,14 @@ public class UserServiceImpl implements UserService {
         throw new ValidationException("404","Aadhar num already exists");
 
     }
+    public void deleteUser(long aadharNum){
+        List<User> aadharList =  userDao.findByaadharNum(aadharNum);
+        if(aadharList.isEmpty()){
+            throw new ValidationException("404","Aadhar num doesnt exists");
+        }
+        userDao.deleteUser(aadharNum);
 
-    public Iterable<User> deleteUser(boolean isDeleted){
-        Session session = entityManager.unwrap(Session.class);
-        Filter filter = session.enableFilter("deleted User");
-        filter.setParameter("isDeleted", isDeleted);
-        Iterable<User> user =  userDao.findAll();
-        session.disableFilter("deleted User");
-        return user;
     }
+
+
 }
