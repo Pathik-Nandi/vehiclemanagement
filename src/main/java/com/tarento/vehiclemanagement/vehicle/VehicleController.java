@@ -36,9 +36,10 @@ public class VehicleController {
     public List<Vehicle> findBychassisNumber(@PathVariable long chassisNumber) {
         return vehicleService.findVehicleBychassisNumber(chassisNumber);
     }
+
     @PostMapping("/update")
-    public APIResponse updateVehicle(@Valid @RequestBody Vehicle vehicle){
+    public APIResponse updateVehicle(@Valid @RequestBody Vehicle vehicle) {
         long chassisNumber = vehicleService.updateVehicle(vehicle);
-        return new APIResponse(true,"200",chassisNumber);
+        return new APIResponse(true, "200", chassisNumber);
     }
 }

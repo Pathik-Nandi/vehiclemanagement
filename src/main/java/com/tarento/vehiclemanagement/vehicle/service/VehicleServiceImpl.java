@@ -43,10 +43,10 @@ public class VehicleServiceImpl implements VehicleService {
 
     @Override
     public long updateVehicle(Vehicle vehicle) {
-        if (vehicleDao.findBychassisNumber(vehicle.getChassisNumber()).isEmpty()) {
-            throw new NotFoundException("404", "chassis number not found");
+        if (vehicleDao.findById(vehicle.getVehicleId()).isPresent()) {
+            return vehicleDao.save(vehicle).getVehicleId();
         } else {
-            return vehicleDao.save(vehicle).getChassisNumber();
+            throw new NotFoundException("404", "vehicle id doesn't exist");
         }
     }
 
@@ -64,8 +64,8 @@ public class VehicleServiceImpl implements VehicleService {
     public Vehicle fetchVehicle(long vehicleId) {
         Optional<Vehicle> vehicle = vehicleDao.findById(vehicleId);
         if (vehicle.isPresent()) {
-            Vehicle vehicleObj = vehicle.get();
-            return vehicleObj;
+            Vehicle vehiclelist = vehicle.get();
+            return vehiclelist;
         } else {
             throw new NotFoundException("404", "Vehicle id:" + vehicleId + " " + "doesn't exist");
         }
