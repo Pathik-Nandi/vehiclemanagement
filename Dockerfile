@@ -7,5 +7,6 @@ RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
 COPY target/vehiclemanagement-*.jar api.jar
-EXPOSE 8080
+EXPOSE 9090
+
 ENTRYPOINT java -jar api.jar
