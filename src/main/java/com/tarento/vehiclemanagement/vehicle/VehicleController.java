@@ -23,7 +23,7 @@ public class VehicleController {
     }
 
     @GetMapping("/{vehicleId}")
-    public Optional<Vehicle> fetchVehicle(@PathVariable long vehicleId) {
+    public Vehicle fetchVehicle(@PathVariable long vehicleId) {
         return vehicleService.fetchVehicle(vehicleId);
     }
 

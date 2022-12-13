@@ -16,7 +16,7 @@ public interface VehicleDao extends JpaRepository<Vehicle, Long> {
     @Modifying
     @Transactional
     @Query(value = "update vehicle set status=0 where vehicle_id=?1",nativeQuery = true)
-    public void softDelete(long vehicleId);
+    public void delete(long vehicleId);
 }
 
 

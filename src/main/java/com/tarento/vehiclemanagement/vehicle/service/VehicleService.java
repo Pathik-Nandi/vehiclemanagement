@@ -9,7 +9,7 @@ public interface VehicleService {
 
     public List<Vehicle> findVehicleBychassisNumber(long chassisNumber);
 
-    public Optional<Vehicle> fetchVehicle(long vehicleId);
+    public Vehicle fetchVehicle(long vehicleId);
 
     public void deleteVehicle(long vehicleId);
 
