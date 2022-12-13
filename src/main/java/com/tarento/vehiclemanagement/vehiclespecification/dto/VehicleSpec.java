@@ -1,24 +1,23 @@
 package com.tarento.vehiclemanagement.vehiclespecification.dto;
 
-import com.tarento.vehiclemanagement.audit.Auditable;
-import net.bytebuddy.utility.dispatcher.JavaDispatcher;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
-import javax.xml.transform.Source;
+import java.util.Date;
 
 @Entity
 public class VehicleSpec {
     @Id
     private long specId;
-//    @NotEmpty(message = "vehicleRPM must not be blank")
+    @NotEmpty(message = "vehicleRPM must not be blank")
     private long vehicleRpm;
-//    @NotEmpty(message = "fuelCap must not be blank")
+    @NotEmpty(message = "fuelCap must not be blank")
     private String fuelCap;
-//    @NotEmpty(message = "engineCap must not be blank")
+    @NotEmpty(message = "engineCap must not be blank")
     private String engineCap;
     @Min(1)
     @Max(99)
@@ -26,18 +25,28 @@ public class VehicleSpec {
     @Min(101)
     @Max(999)
     private long modelId;
+    private Date createdAt;
+    private Date updatedAt;
+    private String createdBy;
+    private String updatedBy;
+    @Column(name = "status")
+    private boolean deleted = Boolean.FALSE;
 
     public VehicleSpec() {
-
     }
 
-    public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId) {
+    public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId, Date createdAt, Date updatedAt, String createdBy, String updatedBy, boolean deleted) {
         this.specId = specId;
         this.vehicleRpm = vehicleRpm;
         this.fuelCap = fuelCap;
         this.engineCap = engineCap;
         this.mileage = mileage;
         this.modelId = modelId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.createdBy = createdBy;
+        this.updatedBy = updatedBy;
+        this.deleted = deleted;
     }
 
     public long getSpecId() {
@@ -88,30 +97,60 @@ public class VehicleSpec {
         this.modelId = modelId;
     }
 
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
+    }
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
     @Override
-    @JavaDispatcher.Container
     public String toString() {
         return "VehicleSpec{" +
                 "specId=" + specId +
-                ", vRPM=" + vehicleRpm +
+                ", vehicleRpm=" + vehicleRpm +
                 ", fuelCap='" + fuelCap + '\'' +
                 ", engineCap='" + engineCap + '\'' +
                 ", mileage='" + mileage + '\'' +
                 ", modelId=" + modelId +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", createdBy='" + createdBy + '\'' +
+                ", updatedBy='" + updatedBy + '\'' +
+                ", deleted=" + deleted +
                 '}';
     }
-
-//    @Override
-//    public String getSystemId() {
-//        return null;
-//    }
-//
-//    @Override
-//    public void setSystemId(String systemId) {
-//    }
-//
-//    @Override
-//    public boolean isEmpty() {
-//        return Source.super.isEmpty();
-//    }
 }

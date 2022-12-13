@@ -1,9 +1,6 @@
 package com.tarento.vehiclemanagement.vehicle.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -11,25 +8,29 @@ import java.util.Date;
 public class Vehicle {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long vehicleId;
     private String vehicleName;
     private String vehicleType;
     @JoinColumn(name="model_id")
-    private long model_id;
+    private long modelId;
     private long chassisNumber;
     private Date createdAt;
     private Date updatedAt;
     private String createdBy;
     private String updatedBy;
+    @Column(name = "status")
+    private boolean deleted = Boolean.FALSE;
+
 
     public Vehicle() {
     }
 
-    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long model_id, long chassisNumber, Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
+    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long modelId, long chassisNumber,Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
         this.vehicleId = vehicleId;
         this.vehicleName = vehicleName;
         this.vehicleType = vehicleType;
-        this.model_id = model_id;
+        this.modelId = modelId;
         this.chassisNumber = chassisNumber;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -61,12 +62,12 @@ public class Vehicle {
         this.vehicleType = vehicleType;
     }
 
-    public long getModel_id() {
-        return model_id;
+    public long getModelId() {
+        return modelId;
     }
 
-    public void setModel_id(long model_id) {
-        this.model_id = model_id;
+    public void setModelId(long modelId) {
+        this.modelId = modelId;
     }
 
     public long getChassisNumber() {
@@ -115,7 +116,7 @@ public class Vehicle {
                 "vehicleId=" + vehicleId +
                 ", vehicleName='" + vehicleName + '\'' +
                 ", vehicleType='" + vehicleType + '\'' +
-                ", model_id=" + model_id +
+                ", modelId=" + modelId +
                 ", chassisNumber=" + chassisNumber +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +

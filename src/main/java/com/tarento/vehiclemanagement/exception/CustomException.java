@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomException extends RuntimeException {
-    private List<KeyValuePair> errorCodes = new ArrayList<>();
+    private transient List<KeyValuePair> errorCodes = new ArrayList<>();
 
     public CustomException(String key, String value) {
         errorCodes.add(new KeyValuePair(key, value));

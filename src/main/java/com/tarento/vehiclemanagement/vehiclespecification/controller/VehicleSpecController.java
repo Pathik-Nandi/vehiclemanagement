@@ -1,7 +1,5 @@
 package com.tarento.vehiclemanagement.vehiclespecification.controller;
 
-//import com.tarento.demo.dto.VehicleSpec;
-//import com.tarento.demo.service.VehicleSpecService;
 
 import com.tarento.vehiclemanagement.vehiclespecification.dto.VehicleSpec;
 import com.tarento.vehiclemanagement.vehiclespecification.service.VehicleSpecService;
@@ -19,12 +17,6 @@ public class VehicleSpecController {
     @Autowired
     private VehicleSpecService vehicleSpecService;
 
-    //Testing controller
-    @GetMapping("/home")
-    public String home() {
-        return "This is Home Page";
-    }
-
     //getting particular VehicleSpec record by assessmentId
     @GetMapping("/getVehicleSpec/{specId}")
     public VehicleSpec getVehicleSpecById(@PathVariable Long specId) {
@@ -33,7 +25,7 @@ public class VehicleSpecController {
 
     //Adding VehicleSpec by Post method
     @PostMapping("/addVehicleSpec")
-    public String addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) throws IOException, SAXException {
+    public long addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) throws IOException, SAXException {
         return this.vehicleSpecService.addVehicleSpec(vehicleSpec);
     }
 

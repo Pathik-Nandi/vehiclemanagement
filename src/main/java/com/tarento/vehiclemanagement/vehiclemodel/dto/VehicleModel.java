@@ -20,18 +20,16 @@ public class VehicleModel extends Auditable {
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "date_of_manufacture", nullable = false, updatable = false)
     private Date dateOfManufacture;
-    private boolean status = Boolean.TRUE;
 
     public VehicleModel() {
     }
 
-    public VehicleModel(long modelId, String modelName, long modelNumber, String manufacturer, Date dateOfManufacture, boolean status) {
+    public VehicleModel(long modelId, String modelName, long modelNumber, String manufacturer, Date dateOfManufacture) {
         this.modelId = modelId;
         this.modelName = modelName;
         this.modelNumber = modelNumber;
         this.manufacturer = manufacturer;
         this.dateOfManufacture = dateOfManufacture;
-        this.status = status;
     }
 
     public long getModelId() {
@@ -74,15 +72,8 @@ public class VehicleModel extends Auditable {
         this.dateOfManufacture = dateOfManufacture;
     }
 
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
     @Override
+    @JavaDispatcher.Container
     public String toString() {
         return "VehicleModel{" +
                 "modelId=" + modelId +
@@ -90,7 +81,7 @@ public class VehicleModel extends Auditable {
                 ", modelNumber=" + modelNumber +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", dateOfManufacture=" + dateOfManufacture +
-                ", status=" + status +
                 '}';
     }
+
 }
