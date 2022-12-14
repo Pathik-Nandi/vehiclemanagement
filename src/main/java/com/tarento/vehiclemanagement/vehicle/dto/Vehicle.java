@@ -12,7 +12,7 @@ public class Vehicle {
     private long vehicleId;
     private String vehicleName;
     private String vehicleType;
-    @JoinColumn(name="model_id")
+    @JoinColumn(name = "model_id")
     private long modelId;
     private long chassisNumber;
     private Date createdAt;
@@ -26,7 +26,7 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long modelId, long chassisNumber,Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
+    public Vehicle(long vehicleId, String vehicleName, String vehicleType, long modelId, long chassisNumber, Date createdAt, Date updatedAt, String createdBy, String updatedBy) {
         this.vehicleId = vehicleId;
         this.vehicleName = vehicleName;
         this.vehicleType = vehicleType;
