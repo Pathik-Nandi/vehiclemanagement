@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getUserByName(String userName) {
         List<User> userList=userDao.findByuserName(userName);
         List<User> resultList = new ArrayList<>();
-        if(userList.isEmpty() ){
+        if(userList.isEmpty()){
             throw new ValidationException("404","User name does't exist");
         }
         else {
@@ -82,18 +82,19 @@ public class UserServiceImpl implements UserService {
     public User updateUser(User user) {
         Long aadharNum = user.getAadharNum();
         List<User> aadharList = userDao.findByaadharNum(aadharNum);
-        if(aadharList.isEmpty()){
-            throw new ValidationException("404","Aadhar num already exists");
+        if(!aadharList.isEmpty() && aadharList.get(0).isDeleted()){
+            throw new ValidationException("404","User doesn't exists");
+        } else if (aadharList.isEmpty()) {
+            throw new ValidationException("404","Aadhar num doesn't exists");
         }
-        userDao.save(user);
-        return user;
+        return userDao.save(user);
     }
-    public void deleteUser(long aadharNum){
-        List<User> aadharList =  userDao.findByaadharNum(aadharNum);
-        if(aadharList.isEmpty()){
-            throw new ValidationException("404","Aadhar num doesnt exists");
+    public void deleteUser(long userId){
+        Optional<User> userList =  userDao.findById(userId);
+        if(userList.isEmpty() || userList.get().isDeleted() ){
+            throw new ValidationException("404","User Id doesnt exists");
         }
-        userDao.deleteUser(aadharNum);
+        userDao.deleteUser(userId);
     }
 
 }

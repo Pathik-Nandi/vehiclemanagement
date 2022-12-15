@@ -20,6 +20,6 @@ public interface UserDao extends JpaRepository<User, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "update user set deleted=1 where aadhar_Num=?", nativeQuery = true)
-    public void deleteUser(long aadharNum);
+    @Query(value = "update user set deleted=1 where user_id=?", nativeQuery = true)
+    public void deleteUser(long userId);
 }

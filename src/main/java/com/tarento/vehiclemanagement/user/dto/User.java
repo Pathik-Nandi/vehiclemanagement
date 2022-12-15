@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -29,7 +30,7 @@ public class User {
     private String createdBy;
     private Date updatedAt;
     private String updatedBy;
-
+    @JsonIgnore
     private boolean deleted = Boolean.FALSE;
 
     public User() {
