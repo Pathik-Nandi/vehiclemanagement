@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.hibernate.Session;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 
@@ -22,8 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-    @Autowired
-    private EntityManager entityManager;
 
 
     @Override
@@ -50,14 +51,21 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
     @Override
     public List<User> getUserByName(String userName) {
         List<User> userList=userDao.findByuserName(userName);
-        if(userList.isEmpty() || userList.get(0).isDeleted()){
+        List<User> resultList = new ArrayList<>();
+        if(userList.isEmpty() ){
             throw new ValidationException("404","User name does't exist");
         }
-        return userDao.findByuserName(userName);
+        else {
+            userList.stream().forEach(user -> {
+                if (!user.isDeleted()) {
+                    resultList.add(user);
+                }
+            });
+        }
+        return resultList;
     }
 
     @Override
@@ -75,11 +83,10 @@ public class UserServiceImpl implements UserService {
         Long aadharNum = user.getAadharNum();
         List<User> aadharList = userDao.findByaadharNum(aadharNum);
         if(aadharList.isEmpty()){
-            userDao.save(user);
-            return user;
+            throw new ValidationException("404","Aadhar num already exists");
         }
-        throw new ValidationException("404","Aadhar num already exists");
-
+        userDao.save(user);
+        return user;
     }
     public void deleteUser(long aadharNum){
         List<User> aadharList =  userDao.findByaadharNum(aadharNum);
@@ -87,8 +94,6 @@ public class UserServiceImpl implements UserService {
             throw new ValidationException("404","Aadhar num doesnt exists");
         }
         userDao.deleteUser(aadharNum);
-
     }
-
 
 }

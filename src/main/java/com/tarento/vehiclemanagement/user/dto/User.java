@@ -15,7 +15,6 @@ import java.sql.Date;
 @Table(name = "user", schema = "Vehiclemanagement")
 public class User {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
