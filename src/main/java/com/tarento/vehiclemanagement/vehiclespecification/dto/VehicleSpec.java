@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 public class VehicleSpec {
     @Id
-    private long specId;
+    private long modelId;
     @NotEmpty(message = "vehicleRPM must not be blank")
     private long vehicleRpm;
     @NotEmpty(message = "fuelCap must not be blank")
@@ -21,9 +21,6 @@ public class VehicleSpec {
     @Min(1)
     @Max(99)
     private String mileage;
-    @Min(101)
-    @Max(999)
-    private long modelId;
     private Date createdAt;
     private Date updatedAt;
     private String createdBy;
@@ -32,8 +29,7 @@ public class VehicleSpec {
     private boolean deleted = Boolean.FALSE;
     public VehicleSpec() {
     }
-    public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId, Date createdAt, Date updatedAt, String createdBy, String updatedBy, boolean deleted) {
-        this.specId = specId;
+    public VehicleSpec(long modelId, long vehicleRpm, String fuelCap, String engineCap, String mileage, Date createdAt, Date updatedAt, String createdBy, String updatedBy, boolean deleted) {
         this.vehicleRpm = vehicleRpm;
         this.fuelCap = fuelCap;
         this.engineCap = engineCap;
@@ -85,13 +81,6 @@ public class VehicleSpec {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
-    public long getSpecId() {
-        return specId;
-    }
-
-    public void setSpecId(long specId) {
-        this.specId = specId;
-    }
 
     public long getVehicleRpm() {
         return vehicleRpm;
@@ -136,7 +125,6 @@ public class VehicleSpec {
     @Override
     public String toString() {
         return "VehicleSpec{" +
-                "specId=" + specId +
                 ", vehicleRpm=" + vehicleRpm +
                 ", fuelCap='" + fuelCap + '\'' +
                 ", engineCap='" + engineCap + '\'' +
