@@ -9,4 +9,5 @@ WORKDIR $APP_HOME
 COPY target/vehiclemanagement-*.jar api.jar
 EXPOSE 9090
 
+
 ENTRYPOINT java -jar api.jar

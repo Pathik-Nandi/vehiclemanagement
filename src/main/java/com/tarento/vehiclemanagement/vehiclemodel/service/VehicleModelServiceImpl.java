@@ -22,7 +22,7 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     @Override
     public VehicleModel getVehicleModelById(long modelId) {
         Optional<VehicleModel> VM = vehicleModelDao.findById(modelId);
-        if (VM.isEmpty() || VM.get().isStatus()==false){
+        if (VM.isEmpty()){
             throw new CustomException("ERROR:400","model is not found!");
         }
         return VM.get();
