@@ -3,7 +3,6 @@ package com.tarento.vehiclemanagement.uservehiclemap.service;
 import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.NotFoundException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
-import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.user.service.UserService;
 import com.tarento.vehiclemanagement.uservehiclemap.data.UserVehicleMapDao;
 import com.tarento.vehiclemanagement.uservehiclemap.dto.UserVehicleMap;
@@ -48,34 +47,36 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
 
     @Override
     public UserVehicleMap adduserVehicleMapping(UserVehicleMap userVehicleMap) {
-        if (findByUserIdAndVehicleId(userVehicleMap).isPresent()) {
-            throw new CustomException("Err00", "Mapping already present");
-        }
-        User user = userService.getUserById(userVehicleMap.getUserId());
-//        if (user == null){
-//            throw new CustomException("Err06","User doesn't exist");
-//        }
-        if (vehicleService.fetchVehicle(userVehicleMap.getUserId()).isEmpty()) {
-            throw new CustomException("Err07", "Vehicle doesn't exist");
-        }
-        List<UserVehicleMap> userVehicleMapList = getUserVehicleMappingByVehicleId(userVehicleMap.getVehicleId());
+//        checking if user with ID exists or not(calling getUserById from userService),exception handled in user service call
+        userService.getUserById(userVehicleMap.getUserId());
+
+//        checking if vehicle with ID is present(calling fetchVehicle from vehicleService),exception handled in vehicle service call
+        Vehicle vehicleOptional = vehicleService.fetchVehicle(userVehicleMap.getVehicleId());
+        long vehicleId = userVehicleMap.getVehicleId();
+
+//        getting list of mappings by passing chassis number
+        List<UserVehicleMap> userVehicleMapList = getUserVehicleMappingByVehicleId(vehicleId);
+
+//      checking if mapping is already present
+        userVehicleMapList.forEach(userVehicleMap1 -> {
+            if (userVehicleMap1.getUserId() == userVehicleMap.getUserId()) {
+                throw new CustomException("Err00", "Mapping already present");
+            }
+        });
+
+//        checking if map limit is exceeded
         if (userVehicleMapList.size() >= maplimit) {
             throw new CustomException("ERR001", "Mapping limit reached");
         } else {
-            Optional<Vehicle> vehicle = vehicleRepo.findById(userVehicleMap.getVehicleId());
-            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicle.get().getModel_id());
-            Date manufactureDate = vehicleModel.get().getDateOfManufacture();
-            System.out.println(manufactureDate);
-            int manufactureYear;
-            try {
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTime(manufactureDate);
-                manufactureYear = calendar.get(Calendar.YEAR);
-
-            } catch (Exception ex) {
-                throw new ValidationException("Err5", "Incorrect date limit provided");
+//          getting vehicle model by passing model ID(using find by Id from vehicle Repo)
+            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicleOptional.getModelId());
+            VehicleModel vehicleModelObj = null;
+            if (vehicleModel.isPresent()) {
+                vehicleModelObj = vehicleModel.get();
             }
-
+            assert vehicleModelObj != null;
+            Date manufactureDate = vehicleModelObj.getDateOfManufacture();
+            int manufactureYear = findYear(manufactureDate);
             if (manufactureYear < yearLimit) {
                 throw new CustomException("ERR003", "Did not meet year requirements ");
             }
@@ -84,6 +85,9 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
         }
     }
 
+
+    //    get mappings by providing user ID
+
     @Override
     public List<UserVehicleMap> getUserVehicleMappingByUserId(long userId) {
         List<UserVehicleMap> userVehicleMapList = userVehicleMapDao.findByUserId(userId);
@@ -91,21 +95,21 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
             throw new NotFoundException("ERR002", "Mapping not found");
         }
         return userVehicleMapList;
-//        return userVehicleMapDao.findByUserId(userId);
     }
 
+
+    //    get mappings by providing chassis number
     @Override
-    public List<UserVehicleMap> getUserVehicleMappingByVehicleId(long chassisNumber) {
-        List<Vehicle> vehicleList = vehicleService.findVehicleBychassisNumber(chassisNumber);
-        long vehicleId = vehicleList.get(0).getVehicleId();
+    public List<UserVehicleMap> getUserVehicleMappingByVehicleId(long vehicleId) {
+        Vehicle vehicleList = vehicleService.fetchVehicle(vehicleId);
         List<UserVehicleMap> userVehicleMapList = userVehicleMapDao.findByVehicleId(vehicleId);
         if (userVehicleMapList.isEmpty()) {
             throw new NotFoundException("ERR002", "Mapping not found");
         }
         return userVehicleMapList;
-//        return userVehicleMapDao.findByVehicleId(vehicleId);
     }
 
+    //    deleting a mapping
     @Override
     @Transactional
     public UserVehicleMap deleteUserVehicleMap(UserVehicleMap userVehicleMap) {
@@ -113,9 +117,24 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
         return userVehicleMap;
     }
 
+    //    finding if a mapping exists or not
     @Override
     public Optional<UserVehicleMap> findByUserIdAndVehicleId(UserVehicleMap userVehicleMap) {
         return userVehicleMapDao.findByUserIdAndVehicleId(userVehicleMap.getUserId(), userVehicleMap.getVehicleId());
+    }
+
+    //  method for finding year from the date
+    public int findYear(Date date) {
+        int manufactureYear;
+        try {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            manufactureYear = calendar.get(Calendar.YEAR);//date util
+
+        } catch (Exception ex) {
+            throw new ValidationException("Err5", "Incorrect date limit provided");
+        }
+        return manufactureYear;
     }
 }
 

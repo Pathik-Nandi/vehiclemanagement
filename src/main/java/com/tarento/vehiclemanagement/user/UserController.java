@@ -1,10 +1,9 @@
 package com.tarento.vehiclemanagement.user;
 
-//import com.codahale.metrics.annotation.Timed;
 
 import com.tarento.vehiclemanagement.user.dto.User;
 import com.tarento.vehiclemanagement.user.service.UserService;
-import com.tarento.vehiclemanagement.vehicle.dto.Vehicle;
+import io.micrometer.core.annotation.Timed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.tarento.vehiclemanagement.apiresponse.APIResponse;
@@ -19,8 +18,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-//    @GetMapping("/{userId}")
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @GetMapping("/{userId}")
+    @Timed(value = "get_user",description = "user displayed")
     public User getUserById(@PathVariable int userId) {
         return userService.getUserById(userId);
     }
@@ -36,17 +35,20 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-//    @Timed(value = "add.user",description = "Time taken to add user")
+    @Timed(value = "add_user",description = "Adding user")
     public APIResponse addUser(@Valid @RequestBody User user) throws ValidationException {
         return new APIResponse(true, "200", userService.addUser(user));
     }
-    @DeleteMapping("/{userId}")
-    public long deleteUser(@RequestBody long userId) {
-        return userService.deleteUser(userId);
+
+    @PutMapping("/updateUser")
+    public User updateUser(@RequestBody User user) {
+        return userService.updateUser(user);
     }
 
-    @PutMapping("/{userId}")
-    public int updateUser(@RequestBody User user, @PathVariable int userId) {
-        return userService.updateUser(user, userId);
+    @DeleteMapping("/deleteUser/{userId}")
+    public void deleteUser(@PathVariable Long userId) {
+         userService.deleteUser(userId);
     }
+
 }
+

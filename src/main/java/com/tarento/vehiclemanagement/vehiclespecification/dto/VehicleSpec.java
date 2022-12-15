@@ -1,5 +1,7 @@
 package com.tarento.vehiclemanagement.vehiclespecification.dto;
 
+import net.bytebuddy.utility.dispatcher.JavaDispatcher;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +13,7 @@ import java.util.Date;
 @Entity
 public class VehicleSpec {
     @Id
-    private long modelId;
+    private long specId;
     @NotEmpty(message = "vehicleRPM must not be blank")
     private long vehicleRpm;
     @NotEmpty(message = "fuelCap must not be blank")
@@ -21,15 +23,21 @@ public class VehicleSpec {
     @Min(1)
     @Max(99)
     private String mileage;
+    @Min(101)
+    @Max(999)
+    private long modelId;
     private Date createdAt;
     private Date updatedAt;
     private String createdBy;
     private String updatedBy;
     @Column(name = "status")
+//    private Boolean active = true;
     private boolean deleted = Boolean.FALSE;
+
     public VehicleSpec() {
     }
-    public VehicleSpec(long modelId, long vehicleRpm, String fuelCap, String engineCap, String mileage, Date createdAt, Date updatedAt, String createdBy, String updatedBy, boolean deleted) {
+    public VehicleSpec(long specId, long vehicleRpm, String fuelCap, String engineCap, String mileage, long modelId, Date createdAt, Date updatedAt, String createdBy, String updatedBy, boolean deleted) {
+        this.specId = specId;
         this.vehicleRpm = vehicleRpm;
         this.fuelCap = fuelCap;
         this.engineCap = engineCap;
@@ -81,6 +89,13 @@ public class VehicleSpec {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
+    public long getSpecId() {
+        return specId;
+    }
+
+    public void setSpecId(long specId) {
+        this.specId = specId;
+    }
 
     public long getVehicleRpm() {
         return vehicleRpm;
@@ -125,6 +140,7 @@ public class VehicleSpec {
     @Override
     public String toString() {
         return "VehicleSpec{" +
+                "specId=" + specId +
                 ", vehicleRpm=" + vehicleRpm +
                 ", fuelCap='" + fuelCap + '\'' +
                 ", engineCap='" + engineCap + '\'' +

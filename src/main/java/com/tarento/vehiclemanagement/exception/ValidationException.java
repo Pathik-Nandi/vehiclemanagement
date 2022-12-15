@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationException extends RuntimeException {
-    private List<KeyValuePair> errorCodes = new ArrayList<>();
+    private transient List<KeyValuePair> errorCodes = new ArrayList<>();
 
     public ValidationException(String key, String value) {
         errorCodes.add(new KeyValuePair(key, value));

@@ -1,19 +1,22 @@
 package com.tarento.vehiclemanagement.user.service;
-
 import com.ibm.icu.lang.UCharacter;
 import com.ibm.icu.text.BreakIterator;
 import com.tarento.vehiclemanagement.exception.CustomException;
 import com.tarento.vehiclemanagement.exception.ValidationException;
 import com.tarento.vehiclemanagement.user.data.UserDao;
 import com.tarento.vehiclemanagement.user.dto.User;
+import org.hibernate.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
+import org.hibernate.Session;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
+import javax.persistence.EntityManager;
 
 
 @Component
@@ -29,50 +32,69 @@ public class UserServiceImpl implements UserService {
     public User addUser(User user) {
 
         Long aadharNum = user.getAadharNum();
-        List<User> aadharNameList = getUserByAadhar(aadharNum);
-        String userName = user.getUserName();
-        Pattern regex = Pattern.compile("[{$&+,:;=\\?@#|/'<>.^*()%!-_}]");
-        String titleCase = UCharacter.toTitleCase(userName, BreakIterator.getTitleInstance());
-        user.setUserName(titleCase);
-        if (aadharNameList.size() > 0) {
-            throw new ValidationException("ERR001", "This aadhar num exists");
-        } else if (regex.matcher(userName).find()) {
-            throw new ValidationException("400", "Special Characters not allowed.");
+        List<User> aadharNameList = userDao.findByaadharNum(aadharNum);
+        if (!aadharNameList.isEmpty()) {
+            throw new CustomException("ERR001", "This aadhar num exists");
         }
-//        List usernameList=getUserByName(userName);
-//        if (usernameList.size()>0){
-//            return "User already exist";
-//        }
-        userDao.save(user);
+        else
+            userDao.save(user);
         return user;
     }
 
     @Override
     public User getUserById(long userId) {
-        Optional<User> idlist = userDao.findById(userId);
-        return idlist.get();
+        Optional<User> idlist = Optional.ofNullable(userDao.findById(userId).orElseThrow(() -> new CustomException("404", "USER ID not found.")));
+        User user = null;
+        if (idlist.isPresent()) {
+            user = idlist.get();
+        }
+        return user;
     }
 
     @Override
     public List<User> getUserByName(String userName) {
-        return userDao.findByuserName(userName);
+        List<User> userList=userDao.findByuserName(userName);
+        List<User> resultList = new ArrayList<>();
+        if(userList.isEmpty()){
+            throw new ValidationException("404","User name does't exist");
+        }
+        else {
+            userList.stream().forEach(user -> {
+                if (!user.isDeleted()) {
+                    resultList.add(user);
+                }
+            });
+        }
+        return resultList;
     }
 
     @Override
-    public List<User> getUserByAadhar(Long aadharNum) {
+    public List<User> getUserByAadhar(long aadharNum) {
+        List<User> aadharList =  userDao.findByaadharNum(aadharNum);
+        if(aadharList.isEmpty()){
+            throw new ValidationException("404","Aadhar num doesnt exists");
+        }
         return userDao.findByaadharNum(aadharNum);
     }
 
     @Override
-    public long deleteUser(long userId) {
-        userDao.deleteById(userId);
-        return userId;
+
+    public User updateUser(User user) {
+        Long aadharNum = user.getAadharNum();
+        List<User> aadharList = userDao.findByaadharNum(aadharNum);
+        if(!aadharList.isEmpty() && aadharList.get(0).isDeleted()){
+            throw new ValidationException("404","User doesn't exists");
+        } else if (aadharList.isEmpty()) {
+            throw new ValidationException("404","Aadhar num doesn't exists");
+        }
+        return userDao.save(user);
+    }
+    public void deleteUser(long userId){
+        Optional<User> userList =  userDao.findById(userId);
+        if(userList.isEmpty() || userList.get().isDeleted() ){
+            throw new ValidationException("404","User Id doesnt exists");
+        }
+        userDao.deleteUser(userId);
     }
 
-    @Override
-    public int updateUser(User user, int userId) {
-        userDao.save(user);
-        return 1;
-    }
 }
-
