@@ -1,5 +1,7 @@
 package com.tarento.vehiclemanagement.vehiclespecification.controller;
 
+//import com.tarento.demo.dto.VehicleSpec;
+//import com.tarento.demo.service.VehicleSpecService;
 
 import com.tarento.vehiclemanagement.vehiclespecification.dto.VehicleSpec;
 import com.tarento.vehiclemanagement.vehiclespecification.service.VehicleSpecService;
@@ -31,7 +33,7 @@ public class VehicleSpecController {
 
     //Updating VehicleSpec record by put method
     @PutMapping("/updateVehicleSpec")
-    public VehicleSpec updateVehicleMSpec(@RequestBody VehicleSpec vehicleSpec) {
+    public long updateVehicleMSpec(@RequestBody VehicleSpec vehicleSpec) {
         return this.vehicleSpecService.updateVehicleSpec(vehicleSpec);
     }
 
