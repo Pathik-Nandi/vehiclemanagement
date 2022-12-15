@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import javax.validation.Validator;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class VehicleSpecServiceImpl implements VehicleSpecService {
@@ -37,20 +36,14 @@ public class VehicleSpecServiceImpl implements VehicleSpecService {
 
     @Override
     public VehicleSpec getVehicleModelById(long specId) {
-        Optional<VehicleSpec> vehicleSpec = vehicleSpecDao.findById(specId);
-        VehicleSpec vehicleSpecObj = null;
-        if (vehicleSpec.isPresent()) {
-            vehicleSpecObj = vehicleSpec.get();
-        }
-        assert vehicleSpecObj!=null;
-        return vehicleSpecObj;
+        return vehicleSpecDao.findById(specId).get();
     }
 
     @Override
     @Transactional
     public long addVehicleSpec(VehicleSpec vehicleSpec) {
         if (vehicleSpecDao.findBySpecId(vehicleSpec.getSpecId()).isEmpty()){
-            if (vehicleSpecDao.findById(vehicleSpec.getSpecId()).isPresent()){
+            if (vehicleSpecDao.findById(vehicleSpecDao.getSpecId()).isPresent()){
                 return vehicleSpecDao.save(vehicleSpec).getSpecId();
             }
             else{
@@ -61,9 +54,13 @@ public class VehicleSpecServiceImpl implements VehicleSpecService {
     }
 
     @Override
-    public VehicleSpec updateVehicleSpec(VehicleSpec vehicleSpec) {
-        vehicleSpecDao.save(vehicleSpec);
-        return vehicleSpec;
+    public long updateVehicleSpec(VehicleSpec vehicleSpec) {
+        if (vehicleSpecDao.findBySpecId(vehicleSpec.getSpecId()).isEmpty()) {
+            throw new NotFoundException("404", "Vehicle Specification number not found");
+        }
+        else {
+            return vehicleSpecDao.save(vehicleSpec).getSpecId();
+        }
     }
 
     @Override

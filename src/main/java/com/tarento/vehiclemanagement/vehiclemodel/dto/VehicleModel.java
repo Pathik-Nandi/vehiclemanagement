@@ -1,6 +1,8 @@
 package com.tarento.vehiclemanagement.vehiclemodel.dto;
 
 import com.tarento.vehiclemanagement.audit.Auditable;
+import net.bytebuddy.utility.dispatcher.JavaDispatcher;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -21,15 +23,17 @@ public class VehicleModel extends Auditable {
     @Column(name = "date_of_manufacture", nullable = false, updatable = false)
     private Date dateOfManufacture;
 
+    private boolean status;
     public VehicleModel() {
     }
 
-    public VehicleModel(long modelId, String modelName, long modelNumber, String manufacturer, Date dateOfManufacture) {
+    public VehicleModel(long modelId, String modelName, long modelNumber, String manufacturer, Date dateOfManufacture, boolean status) {
         this.modelId = modelId;
         this.modelName = modelName;
         this.modelNumber = modelNumber;
         this.manufacturer = manufacturer;
         this.dateOfManufacture = dateOfManufacture;
+        this.status = status;
     }
 
     public long getModelId() {
@@ -72,8 +76,15 @@ public class VehicleModel extends Auditable {
         this.dateOfManufacture = dateOfManufacture;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
-    @JavaDispatcher.Container
     public String toString() {
         return "VehicleModel{" +
                 "modelId=" + modelId +
@@ -81,7 +92,7 @@ public class VehicleModel extends Auditable {
                 ", modelNumber=" + modelNumber +
                 ", manufacturer='" + manufacturer + '\'' +
                 ", dateOfManufacture=" + dateOfManufacture +
+                ", status=" + status +
                 '}';
     }
-
 }

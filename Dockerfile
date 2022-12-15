@@ -1,12 +1,12 @@
+
 FROM adoptopenjdk/openjdk11:jdk-11.0.16.1_1-slim
 
 ENV APP_HOME=/opt/app
-
 RUN mkdir -p $APP_HOME
-
-WORKDIR $APP_HOME
+WORKDIR $ APP_HOME
 
 COPY target/vehiclemanagement-*.jar api.jar
+
 EXPOSE 9090
 
 ENTRYPOINT java -jar api.jar
