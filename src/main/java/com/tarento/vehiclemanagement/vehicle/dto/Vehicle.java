@@ -20,7 +20,7 @@ public class Vehicle {
     private String createdBy;
     private String updatedBy;
     @Column(name = "status")
-    private boolean deleted = Boolean.FALSE;
+    private boolean status = true;
 
 
     public Vehicle() {
