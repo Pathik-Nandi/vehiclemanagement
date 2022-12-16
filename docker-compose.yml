@@ -3,10 +3,12 @@ version: '3.3'
 services:
   prometheus:
     image: prom/prometheus:v2.14.0
+    #    user: root
     ports:
       - '19090:9090'
     volumes:
-      - /home/reshmaprasad/projectdata/docker/data/prometheus/prometheus.yml:/etc/prometheus/config.yml
+      #      - /apps/prometheus/configs/prometheus.yaml:/etc/prometheus/prometheus.yaml
+      - /home/suyashgupta/ProjectData/vehiclemagement2/docker/data/prometheus/prometheus.yml:/etc/prometheus/config.yml
     command: '--config.file=/etc/prometheus/config.yml'
 
   grafana:
@@ -14,7 +16,9 @@ services:
     ports:
       - '3000:3000'
     volumes:
-      - /home/reshmaprasad/projectdata/docker/data/grafana:/var/lib/grafana
+      #      - ./grafana/provisioning/:/etc/grafana/provisioning/
+      - /home/suyashgupta/ProjectData/vehiclemagement2/docker/data/grafana:/var/lib/grafana
+    #    user: "472"
     user: '104'
     environment:
       - GF_SECURITY_ADMIN_PASSWORD-admin
