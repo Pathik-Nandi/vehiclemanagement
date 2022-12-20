@@ -55,7 +55,7 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
         long vehicleId = userVehicleMap.getVehicleId();
 
 //        getting list of mappings by passing chassis number
-        List<UserVehicleMap> userVehicleMapList = getUserVehicleMappingByVehicleId(vehicleId);
+        List<UserVehicleMap> userVehicleMapList = userVehicleMapDao.findByVehicleId(vehicleId);
 
 //      checking if mapping is already present
         userVehicleMapList.forEach(userVehicleMap1 -> {
@@ -69,17 +69,17 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
             throw new CustomException("ERR001", "Mapping limit reached");
         } else {
 //          getting vehicle model by passing model ID(using find by Id from vehicle Repo)
-            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicleOptional.getModelId());
-            VehicleModel vehicleModelObj = null;
-            if (vehicleModel.isPresent()) {
-                vehicleModelObj = vehicleModel.get();
-            }
-            assert vehicleModelObj != null;
-            Date manufactureDate = vehicleModelObj.getDateOfManufacture();
-            int manufactureYear = findYear(manufactureDate);
-            if (manufactureYear < yearLimit) {
-                throw new CustomException("ERR003", "Did not meet year requirements ");
-            }
+//            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicleOptional.getModelId());
+//            VehicleModel vehicleModelObj = null;
+//            if (vehicleModel.isPresent()) {
+//                vehicleModelObj = vehicleModel.get();
+//            }
+//            assert vehicleModelObj != null;
+//            Date manufactureDate = vehicleModelObj.getDateOfManufacture();
+//            int manufactureYear = findYear(manufactureDate);
+//            if (manufactureYear < yearLimit) {
+//                throw new CustomException("ERR003", "Did not meet year requirements ");
+//            }
             userVehicleMapDao.save(userVehicleMap);
             return userVehicleMap;
         }
