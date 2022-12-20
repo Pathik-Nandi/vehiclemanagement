@@ -23,8 +23,8 @@ public class VehicleSpecController {
     }
     @GetMapping("/findByModelId/{modelId}")
     @Timed(value = "add vehicleSpec", description = "time taken for adding vehicleSpec")
-    public VehicleSpec findBymodelId(@PathVariable long ModelId) {
-        return vehicleSpecService.findVehicleSpecBymodelId(ModelId);
+    public VehicleSpec findBymodelId(@PathVariable long modelId) {
+        return vehicleSpecService.findVehicleSpecBymodelId(modelId);
     }
     @DeleteMapping("/{modelId}")
     public void deleteVehicleSpec(@PathVariable long modelId) {
