@@ -2,78 +2,54 @@ package com.tarento.vehiclemanagement.vehiclespecification.service;
 
 
 import com.tarento.vehiclemanagement.exception.NotFoundException;
+import com.tarento.vehiclemanagement.vehiclemodel.data.VehicleModelDao;
 import com.tarento.vehiclemanagement.vehiclespecification.data.VehicleSpecDao;
 import com.tarento.vehiclemanagement.vehiclespecification.dto.VehicleSpec;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
-import javax.validation.Validator;
-import java.util.List;
 import java.util.Optional;
 
 @Component
 public class VehicleSpecServiceImpl implements VehicleSpecService {
     @Autowired
-    private Validator validator;
-
+    private VehicleModelDao vehicleModelDao;
     @Autowired
     private VehicleSpecDao vehicleSpecDao;
-
     @Override
-    public List<VehicleSpec> getVehicleSpec() {
-        return null;
-    }
-
-    @Override
-    public List<VehicleSpec> findVehicleByspecId(long specId) {
-        return null;
-    }
-
-    @Override
-    public List<VehicleSpec> findByspecId(long specId) {
-            throw new NotFoundException("404", "Vehicle Spec doesn't exists");
-    }
-
-    @Override
-    public VehicleSpec getVehicleModelById(long specId) {
-        Optional<VehicleSpec> vehicleSpec = vehicleSpecDao.findById(specId);
-        VehicleSpec vehicleSpecObj = null;
-        if (vehicleSpec.isPresent()) {
-            vehicleSpecObj = vehicleSpec.get();
+    public VehicleSpec findVehicleSpecBymodelId(long modelId) {
+        Optional<VehicleSpec> list = vehicleSpecDao.findById(modelId);
+        if (list.isPresent()) {
+            VehicleSpec vehicleSpec = list.get();
+            return vehicleSpec;
+        } else {
+            throw new NotFoundException("404", "Model Id doesn't exists");
         }
-        assert vehicleSpecObj!=null;
-        return vehicleSpecObj;
     }
 
     @Override
-    @Transactional
     public long addVehicleSpec(VehicleSpec vehicleSpec) {
-        if (vehicleSpecDao.findBySpecId(vehicleSpec.getSpecId()).isEmpty()){
-            if (vehicleSpecDao.findById(vehicleSpec.getSpecId()).isPresent()){
-                return vehicleSpecDao.save(vehicleSpec).getSpecId();
-            }
-            else{
-                throw new NotFoundException("404","Model_id doesn't exist");
-            }
+        if (vehicleSpecDao.findById(vehicleSpec.getModelId()).isEmpty()){
+            return vehicleSpecDao.save(vehicleSpec).getModelId();
         }
-        throw new NotFoundException("Err07","Vehicle already exists with this chassis number");
+        throw new NotFoundException("Err07","Vehicle already exists with this Model Id");
     }
-
     @Override
-    public VehicleSpec updateVehicleSpec(VehicleSpec vehicleSpec) {
-        vehicleSpecDao.save(vehicleSpec);
-        return vehicleSpec;
+    public long updateVehicleSpec(VehicleSpec vehicleSpec) {
+        if (vehicleSpecDao.findById(vehicleSpec.getModelId()).isEmpty()) {
+            throw new NotFoundException("404", "Model Id not found");
+        }
+        else {
+            return vehicleSpecDao.save(vehicleSpec).getModelId();
+        }
     }
-
     @Override
-    public void deleteVehicleSpec(long specId) {
-        if (vehicleSpecDao.existsById(specId)) {
-            vehicleSpecDao.softDelete(specId);
+    public void deleteVehicleSpec(long modelId) {
+        if (vehicleSpecDao.existsById(modelId)) {
+            vehicleSpecDao.delete(modelId);
         }
         else{
-            throw new NotFoundException("404","VehicleSpec id"+" "+ +specId +" "+ "doesn't exists");
+            throw new NotFoundException("404","Model id"+" "+ +modelId +" "+ "doesn't exists");
         }
     }
 }
-

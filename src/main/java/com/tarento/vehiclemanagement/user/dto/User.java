@@ -1,5 +1,6 @@
 package com.tarento.vehiclemanagement.user.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.*;
 
 import javax.persistence.*;
@@ -13,12 +14,8 @@ import java.sql.Date;
 
 @Entity
 @Table(name = "user", schema = "Vehiclemanagement")
-@SQLDelete(sql = "UPDATE Vehiclemanagement.user SET deleted = true WHERE user_id=?")
-@FilterDef(name = "deleted User", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
-@Filter(name = "deleted User", condition = "deleted = :isDeleted")
-public class User implements Serializable {
+public class User {
 
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +30,7 @@ public class User implements Serializable {
     private String createdBy;
     private Date updatedAt;
     private String updatedBy;
-
+    @JsonIgnore
     private boolean deleted = Boolean.FALSE;
 
     public User() {
