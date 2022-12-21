@@ -69,17 +69,17 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
             throw new CustomException("ERR001", "Mapping limit reached");
         } else {
 //          getting vehicle model by passing model ID(using find by Id from vehicle Repo)
-//            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicleOptional.getModelId());
-//            VehicleModel vehicleModelObj = null;
-//            if (vehicleModel.isPresent()) {
-//                vehicleModelObj = vehicleModel.get();
-//            }
-//            assert vehicleModelObj != null;
-//            Date manufactureDate = vehicleModelObj.getDateOfManufacture();
-//            int manufactureYear = findYear(manufactureDate);
-//            if (manufactureYear < yearLimit) {
-//                throw new CustomException("ERR003", "Did not meet year requirements ");
-//            }
+            Optional<VehicleModel> vehicleModel = vehicleModelRepo.findById(vehicleOptional.getModelId());
+            VehicleModel vehicleModelObj = null;
+            if (vehicleModel.isPresent()) {
+                vehicleModelObj = vehicleModel.get();
+            }
+            assert vehicleModelObj != null;
+            Date manufactureDate = vehicleModelObj.getDateOfManufacture();
+            int manufactureYear = findYear(manufactureDate);
+            if (manufactureYear < yearLimit) {
+                throw new CustomException("ERR003", "Did not meet year requirements ");
+            }
             userVehicleMapDao.save(userVehicleMap);
             return userVehicleMap;
         }
@@ -121,6 +121,17 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
     @Override
     public Optional<UserVehicleMap> findByUserIdAndVehicleId(UserVehicleMap userVehicleMap) {
         return userVehicleMapDao.findByUserIdAndVehicleId(userVehicleMap.getUserId(), userVehicleMap.getVehicleId());
+    }
+
+    @Override
+    public UserVehicleMap findByMapId(long mapId) {
+        Optional<UserVehicleMap> userVehicleMapOptional=userVehicleMapDao.findById(mapId);
+        if (userVehicleMapOptional.isPresent()){
+            UserVehicleMap userVehicleMap=userVehicleMapOptional.get();
+            return userVehicleMap;
+        }else {
+            throw new CustomException("Err 004","No mapping found");
+        }
     }
 
     //  method for finding year from the date
