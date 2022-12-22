@@ -18,20 +18,21 @@ public class VehicleModelController {
 
     //getting All VehicleModel record by get method
     @GetMapping("/getAllVehicleModel")
-    @Timed(value = "greeting.time", description = "Time taken to return greeting")
+    @Timed(value = "get_time", description = "Time taken to return greeting")
     public List<VehicleModel> getAllVehicleModel() {
         return vehicleModelService.getVehicleModel();
     }
 
     //getting particular VehicleModel record by assessmentId
     @GetMapping("/getVehicleModel/{modelId}")
+    @Timed(value = "getById_time", description = "Time taken to return greeting")
     public VehicleModel getVehicleModelById(@PathVariable Long modelId) {
         return this.vehicleModelService.getVehicleModelById(modelId);
     }
 
     //Adding VehicleModel by Post method
     @PostMapping("/addVehicleModel")
-    @Timed(value = "greeting.time", description = "Time taken to return greeting")
+    @Timed(value = "add_time", description = "Time taken to return greeting")
     public APIResponse addVehicleModel(@Valid @RequestBody VehicleModel vehicleModel) {
 
         return new APIResponse(true, "200", vehicleModelService.addVehicleModel(vehicleModel));
@@ -39,6 +40,7 @@ public class VehicleModelController {
 
     //Updating VehicleModel record by put method
     @PutMapping("/updateVehicleModel")
+    @Timed(value = "update_time", description = "Time taken to return greeting")
     public VehicleModel updateVehicleModel(@RequestBody VehicleModel vehicleModel) {
         return this.vehicleModelService.updateVehicleModel(vehicleModel);
     }
