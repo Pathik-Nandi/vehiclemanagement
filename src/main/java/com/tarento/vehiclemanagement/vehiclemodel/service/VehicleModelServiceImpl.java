@@ -30,10 +30,10 @@ public class VehicleModelServiceImpl implements VehicleModelService {
     @Override
     @Transactional
     public VehicleModel addVehicleModel(VehicleModel vehicleModel) {
-         if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
+        if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
             throw new CustomException("ERROR:400", "model already exit");
         }
-         else {
+        else {
             vehicleModelDao.save(vehicleModel);
         }
         return vehicleModel;
@@ -41,7 +41,7 @@ public class VehicleModelServiceImpl implements VehicleModelService {
 
     @Override
     public VehicleModel updateVehicleModel(VehicleModel vehicleModel) {
-         if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
+        if (vehicleModelDao.existsById(vehicleModel.getModelId())) {
             vehicleModelDao.save(vehicleModel);
         }else {
             throw new CustomException("ERROR:400", "model doesn't exit!!");

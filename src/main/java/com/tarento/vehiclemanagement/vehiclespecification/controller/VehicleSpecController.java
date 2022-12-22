@@ -1,50 +1,36 @@
 package com.tarento.vehiclemanagement.vehiclespecification.controller;
 
-
+import com.tarento.vehiclemanagement.apiresponse.APIResponse;
 import com.tarento.vehiclemanagement.vehiclespecification.dto.VehicleSpec;
 import com.tarento.vehiclemanagement.vehiclespecification.service.VehicleSpecService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.xml.sax.SAXException;
 
 import javax.validation.Valid;
-import java.io.IOException;
+
 
 @RestController
 public class VehicleSpecController {
     @Autowired
     private VehicleSpecService vehicleSpecService;
 
-    //getting particular VehicleSpec record by assessmentId
-    @GetMapping("/getVehicleSpec/{specId}")
-    public VehicleSpec getVehicleSpecById(@PathVariable Long specId) {
-        return this.vehicleSpecService.getVehicleModelById(specId);
+    @PostMapping("/add")
+    public APIResponse addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) {
+        System.out.println(" ");
+        long modelId = vehicleSpecService.addVehicleSpec(vehicleSpec);
+        return new APIResponse(true, "200", modelId);
     }
-
-    //Adding VehicleSpec by Post method
-    @PostMapping("/addVehicleSpec")
-    public long addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) throws IOException, SAXException {
-        return this.vehicleSpecService.addVehicleSpec(vehicleSpec);
+    @GetMapping("/findByModelId/{modelId}")
+    public VehicleSpec findBymodelId(@PathVariable long ModelId) {
+        return vehicleSpecService.findVehicleSpecBymodelId(ModelId);
     }
-
-    //Updating VehicleSpec record by put method
-    @PutMapping("/updateVehicleSpec")
-    public VehicleSpec updateVehicleMSpec(@RequestBody VehicleSpec vehicleSpec) {
-        return this.vehicleSpecService.updateVehicleSpec(vehicleSpec);
+    @DeleteMapping("/{modelId}")
+    public void deleteVehicleSpec(@PathVariable long modelId) {
+        vehicleSpecService.deleteVehicleSpec(modelId);
     }
-
-    //Deleting VehicleSpec record by delete method
-    @DeleteMapping("/deleteVehicleSpec/{specId}")
-    public ResponseEntity<HttpStatus> deleteVehicleSpec(@PathVariable long specId) {
-        try {
-            this.vehicleSpecService.deleteVehicleSpec(specId);
-            return new ResponseEntity<>(HttpStatus.OK);
-
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @PostMapping("/update")
+    public APIResponse updateVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) {
+        long modelId = vehicleSpecService.updateVehicleSpec(vehicleSpec);
+        return new APIResponse(true, "200", modelId);
     }
-
 }

@@ -14,14 +14,12 @@ public interface UserService {
 
     public List<User> getUserByName(String userName);
 
-    public List<User> getUserByAadhar(Long aadharNum);
-
-//
-//    public long deleteUser(long userId);
+    public List<User> getUserByAadhar(long aadharNum);
 
     public User updateUser(User user);
 
-    public Iterable<User> deleteUser(boolean isDeleted);
+    public void deleteUser(long userId);
+
 
 }
 

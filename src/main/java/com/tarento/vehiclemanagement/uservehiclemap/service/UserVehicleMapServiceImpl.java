@@ -55,7 +55,7 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
         long vehicleId = userVehicleMap.getVehicleId();
 
 //        getting list of mappings by passing chassis number
-        List<UserVehicleMap> userVehicleMapList = getUserVehicleMappingByVehicleId(vehicleId);
+        List<UserVehicleMap> userVehicleMapList = userVehicleMapDao.findByVehicleId(vehicleId);
 
 //      checking if mapping is already present
         userVehicleMapList.forEach(userVehicleMap1 -> {
@@ -121,6 +121,17 @@ public class UserVehicleMapServiceImpl implements UserVehicleMapService {
     @Override
     public Optional<UserVehicleMap> findByUserIdAndVehicleId(UserVehicleMap userVehicleMap) {
         return userVehicleMapDao.findByUserIdAndVehicleId(userVehicleMap.getUserId(), userVehicleMap.getVehicleId());
+    }
+
+    @Override
+    public UserVehicleMap findByMapId(long mapId) {
+        Optional<UserVehicleMap> userVehicleMapOptional=userVehicleMapDao.findById(mapId);
+        if (userVehicleMapOptional.isPresent()){
+            UserVehicleMap userVehicleMap=userVehicleMapOptional.get();
+            return userVehicleMap;
+        }else {
+            throw new CustomException("Err 004","No mapping found");
+        }
     }
 
     //  method for finding year from the date

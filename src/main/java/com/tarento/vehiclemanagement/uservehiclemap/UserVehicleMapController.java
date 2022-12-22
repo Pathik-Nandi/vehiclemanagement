@@ -52,4 +52,11 @@ public class UserVehicleMapController {
         return new APIResponse(true, "200", userVehicleMapList);
     }
 
+    @GetMapping("/getById/{mapId}")
+    @Timed(value = "get.mappingBymapId", description = "Time taken to get mapping by map id")
+    public APIResponse getMappingByMapId(@Valid @PathVariable long mapId){
+        UserVehicleMap userVehicleMap=userVehicleMapService.findByMapId(mapId);
+        return  new APIResponse(true,"200",userVehicleMap);
+    }
+
 }

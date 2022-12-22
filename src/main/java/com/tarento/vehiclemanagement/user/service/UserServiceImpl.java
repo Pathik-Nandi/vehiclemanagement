@@ -10,8 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 import org.hibernate.Session;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 
@@ -22,8 +25,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-    @Autowired
-    private EntityManager entityManager;
 
 
     @Override
@@ -50,18 +51,25 @@ public class UserServiceImpl implements UserService {
         return user;
     }
 
-
     @Override
     public List<User> getUserByName(String userName) {
         List<User> userList=userDao.findByuserName(userName);
-        if(userList.isEmpty() || userList.get(0).isDeleted()){
+        List<User> resultList = new ArrayList<>();
+        if(userList.isEmpty()){
             throw new ValidationException("404","User name does't exist");
         }
-        return userDao.findByuserName(userName);
+        else {
+            userList.stream().forEach(user -> {
+                if (!user.isDeleted()) {
+                    resultList.add(user);
+                }
+            });
+        }
+        return resultList;
     }
 
     @Override
-    public List<User> getUserByAadhar(Long aadharNum) {
+    public List<User> getUserByAadhar(long aadharNum) {
         List<User> aadharList =  userDao.findByaadharNum(aadharNum);
         if(aadharList.isEmpty()){
             throw new ValidationException("404","Aadhar num doesnt exists");
@@ -74,20 +82,19 @@ public class UserServiceImpl implements UserService {
     public User updateUser(User user) {
         Long aadharNum = user.getAadharNum();
         List<User> aadharList = userDao.findByaadharNum(aadharNum);
-        if(aadharList.isEmpty()){
-            userDao.save(user);
-            return user;
+        if(!aadharList.isEmpty() && aadharList.get(0).isDeleted()){
+            throw new ValidationException("404","User doesn't exists");
+        } else if (aadharList.isEmpty()) {
+            throw new ValidationException("404","Aadhar num doesn't exists");
         }
-        throw new ValidationException("404","Aadhar num already exists");
-
+        return userDao.save(user);
+    }
+    public void deleteUser(long userId){
+        Optional<User> userList =  userDao.findById(userId);
+        if(userList.isEmpty() || userList.get().isDeleted() ){
+            throw new ValidationException("404","User Id doesnt exists");
+        }
+        userDao.deleteUser(userId);
     }
 
-    public Iterable<User> deleteUser(boolean isDeleted){
-        Session session = entityManager.unwrap(Session.class);
-        Filter filter = session.enableFilter("deleted User");
-        filter.setParameter("isDeleted", isDeleted);
-        Iterable<User> user =  userDao.findAll();
-        session.disableFilter("deleted User");
-        return user;
-    }
 }

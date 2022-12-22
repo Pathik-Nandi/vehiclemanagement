@@ -12,10 +12,9 @@ import java.util.List;
 
 @Repository
 public interface VehicleSpecDao extends JpaRepository<VehicleSpec, Long> {
-    public List<Vehicle> findBySpecId(long specId);
     @Modifying
     @Transactional
-    @Query(value = "update vehicle set status=0 where vehicle_id=?1",nativeQuery = true)
-    public void softDelete(long specId);
-
+    @Query(value = "update vehicle set status=0 where vehicle_id=?1", nativeQuery = true)
+    public void delete(long modelId);
 }
+

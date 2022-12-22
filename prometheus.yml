@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Sample Prometheus config
 # This assumes that your Prometheus instance can access this application on localhost:8080
 
@@ -13,3 +14,15 @@ scrape_configs:
     static_configs:
       - targets: ['172.18.0.1:9090']
 
+=======
+global:
+    scrape_interval: 5s
+    evaluation_interval: 5s
+
+scrape_configs:
+    -job_name: 'spring boot scrape'
+    metrics_path: '/actuator/prometheus'
+    scrape_interval: 5s
+    static_configs:
+      -targets: ['172.17.0.1:9090']
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
