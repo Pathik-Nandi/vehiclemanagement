@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jmeterTestPlan version="1.2" properties="5.0" jmeter="5.5">
   <hashTree>
+<<<<<<< HEAD
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+=======
     <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="vehiclemanagement" enabled="true">
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
       <stringProp name="TestPlan.comments"></stringProp>
       <boolProp name="TestPlan.functional_mode">false</boolProp>
       <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
@@ -12,6 +16,16 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+<<<<<<< HEAD
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="VehicleModelThread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">10000</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">20</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">10</stringProp>
+=======
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="VehicleThreadGroup" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
@@ -20,12 +34,40 @@
         </elementProp>
         <stringProp name="ThreadGroup.num_threads">20</stringProp>
         <stringProp name="ThreadGroup.ramp_time">5</stringProp>
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
         <boolProp name="ThreadGroup.scheduler">false</boolProp>
         <stringProp name="ThreadGroup.duration"></stringProp>
         <stringProp name="ThreadGroup.delay"></stringProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
       </ThreadGroup>
       <hashTree>
+<<<<<<< HEAD
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getvehiclemodel" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="name" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">$(vehiclemodel)</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+                <stringProp name="Argument.name">name</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value"></stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+                <boolProp name="HTTPArgument.use_equals">true</boolProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">/vehicle/getVehicleModel/${vehiclemodel}</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+=======
         <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="" elementType="Header">
@@ -60,6 +102,7 @@
           <stringProp name="HTTPSampler.path">/vehicle/2</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
           <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
@@ -105,6 +148,32 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
+<<<<<<< HEAD
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">Content-Type</stringProp>
+              <stringProp name="Header.value">application/json</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">172.18.0.1</stringProp>
+          <stringProp name="HTTPSampler.port">9090</stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.concurrentPool">6</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </ConfigTestElement>
+        <hashTree/>
+=======
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
         <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
@@ -142,6 +211,18 @@
           <stringProp name="filename"></stringProp>
         </ResultCollector>
         <hashTree/>
+<<<<<<< HEAD
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="getallvehicelmodel" enabled="false">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">vehicle/getAllVehicleModel</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+=======
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="addvehicle ${counter_value}" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -169,6 +250,7 @@
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/vehicle/add</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -178,13 +260,34 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
+<<<<<<< HEAD
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="Counter1" enabled="true">
+          <stringProp name="CounterConfig.start">1</stringProp>
+          <stringProp name="CounterConfig.end"></stringProp>
+          <stringProp name="CounterConfig.incr">1</stringProp>
+          <stringProp name="CounterConfig.name">vehiclemodel</stringProp>
+          <stringProp name="CounterConfig.format"></stringProp>
+          <boolProp name="CounterConfig.per_user">false</boolProp>
+        </CounterConfig>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="addvehiclemodel " enabled="true">
+=======
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="updatevehicle" enabled="true">
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
+<<<<<<< HEAD
+  &quot;modelId&quot;: ${vehiclemodel},&#xd;
+  &quot;modelName&quot;: &quot;string&quot;,&#xd;
+  &quot;modelNumber&quot;: 456,&#xd;
+  &quot;manufacturer&quot;: &quot;string&quot;,&#xd;
+  &quot;dateOfManufacture&quot;: &quot;2022-12-20T06:24:59.894Z&quot;,&#xd;
+  &quot;status&quot;: true&#xd;
+=======
   &quot;vehicleId&quot;: 12,&#xd;
   &quot;vehicleName&quot;: &quot;string&quot;,&#xd;
   &quot;vehicleType&quot;: &quot;string&quot;,&#xd;
@@ -194,16 +297,25 @@
   &quot;updatedAt&quot;: &quot;2022-12-15T11:45:53.033Z&quot;,&#xd;
   &quot;createdBy&quot;: &quot;string&quot;,&#xd;
   &quot;updatedBy&quot;: &quot;string&quot;&#xd;
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
           </elementProp>
+<<<<<<< HEAD
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">vehicle/addVehicleModel</stringProp>
+=======
           <stringProp name="HTTPSampler.domain">172.18.0.1</stringProp>
           <stringProp name="HTTPSampler.port">9090</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/vehicle/update</stringProp>
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
           <stringProp name="HTTPSampler.method">POST</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -214,13 +326,33 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
+<<<<<<< HEAD
+        <CounterConfig guiclass="CounterConfigGui" testclass="CounterConfig" testname="modelidcounter" enabled="true">
+          <stringProp name="CounterConfig.start">100</stringProp>
+          <stringProp name="CounterConfig.end"></stringProp>
+          <stringProp name="CounterConfig.incr">1</stringProp>
+          <stringProp name="CounterConfig.name"></stringProp>
+          <stringProp name="CounterConfig.format"></stringProp>
+          <boolProp name="CounterConfig.per_user">false</boolProp>
+        </CounterConfig>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="updatevehiclemodel" enabled="false">
+=======
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="addmodel ${modelcounter_value}" enabled="true">
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
               <elementProp name="" elementType="HTTPArgument">
                 <boolProp name="HTTPArgument.always_encode">false</boolProp>
                 <stringProp name="Argument.value">{&#xd;
+<<<<<<< HEAD
+  &quot;modelId&quot;: ${vehiclemodel},&#xd;
+  &quot;modelName&quot;: &quot;string3&quot;,&#xd;
+  &quot;modelNumber&quot;: 12345,&#xd;
+  &quot;manufacturer&quot;: &quot;string3&quot;,&#xd;
+  &quot;dateOfManufacture&quot;: &quot;2022-12-20T06:24:59.894Z&quot;,&#xd;
+=======
   &quot;createdBy&quot;: &quot;user&quot;,&#xd;
   &quot;createdAt&quot;: &quot;2022-12-20T08:55:55.007Z&quot;,&#xd;
   &quot;updatedBy&quot;: &quot;Admin&quot;,&#xd;
@@ -230,18 +362,28 @@
   &quot;modelNumber&quot;: ${counter_value},&#xd;
   &quot;manufacturer&quot;: &quot;testing&quot;,&#xd;
   &quot;dateOfManufacture&quot;: &quot;2022-12-20T08:55:55.007Z&quot;,&#xd;
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
   &quot;status&quot;: true&#xd;
 }</stringProp>
                 <stringProp name="Argument.metadata">=</stringProp>
               </elementProp>
             </collectionProp>
           </elementProp>
+<<<<<<< HEAD
+          <stringProp name="HTTPSampler.domain"></stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol"></stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">vehicle/updateVehicleModel</stringProp>
+          <stringProp name="HTTPSampler.method">PUT</stringProp>
+=======
           <stringProp name="HTTPSampler.domain">172.18.0.1</stringProp>
           <stringProp name="HTTPSampler.port">9090</stringProp>
           <stringProp name="HTTPSampler.protocol"></stringProp>
           <stringProp name="HTTPSampler.contentEncoding"></stringProp>
           <stringProp name="HTTPSampler.path">/vehicle/addVehicleModel</stringProp>
           <stringProp name="HTTPSampler.method">POST</stringProp>
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
           <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
@@ -251,6 +393,8 @@
           <stringProp name="HTTPSampler.response_timeout"></stringProp>
         </HTTPSamplerProxy>
         <hashTree/>
+<<<<<<< HEAD
+=======
         <ResultCollector guiclass="StatGraphVisualizer" testclass="ResultCollector" testname="Aggregate Graph" enabled="true">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
@@ -315,6 +459,7 @@
           <boolProp name="CounterConfig.per_user">false</boolProp>
         </CounterConfig>
         <hashTree/>
+>>>>>>> 91aaa78c07f93171fdc6f407385127b514d5d510
       </hashTree>
     </hashTree>
   </hashTree>
