@@ -7,5 +7,4 @@ WORKDIR $ APP_HOME
 COPY target/vehiclemanagement-*.jar api.jar
 
 EXPOSE 4040
-
 ENTRYPOINT java -jar api.jar

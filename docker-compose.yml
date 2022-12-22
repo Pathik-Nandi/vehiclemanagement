@@ -1,4 +1,3 @@
-version: '3.3'
 
 services:
   prometheus:
@@ -8,7 +7,7 @@ services:
       - '19090:9090'
     volumes:
       #      - /apps/prometheus/configs/prometheus.yaml:/etc/prometheus/prometheus.yaml
-      - /home/suyashgupta/ProjectData/vehiclemagement2/docker/data/prometheus/prometheus.yml:/etc/prometheus/config.yml
+      - /home/pathiknandi/projectdata/docker/data/prometheus/prometheus.yml:/etc/prometheus/config.yml
     command: '--config.file=/etc/prometheus/config.yml'
 
   grafana:
@@ -17,7 +16,7 @@ services:
       - '3000:3000'
     volumes:
       #      - ./grafana/provisioning/:/etc/grafana/provisioning/
-      - /home/suyashgupta/ProjectData/vehiclemagement2/docker/data/grafana:/var/lib/grafana
+      - /home/pathiknandi/projectdata/docker/data/grafana:/var/lib/grafana
     #    user: "472"
     user: '104'
     environment:

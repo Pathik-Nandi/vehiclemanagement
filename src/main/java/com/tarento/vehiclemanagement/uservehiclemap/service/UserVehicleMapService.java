@@ -17,5 +17,7 @@ public interface UserVehicleMapService {
 
     public Optional<UserVehicleMap> findByUserIdAndVehicleId(UserVehicleMap userVehicleMap);
 
+    public UserVehicleMap findByMapId(long mapId);
+
 
 }
