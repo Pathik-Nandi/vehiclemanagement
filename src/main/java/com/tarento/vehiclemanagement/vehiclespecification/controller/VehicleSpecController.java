@@ -17,7 +17,6 @@ public class VehicleSpecController {
 
     @PostMapping("/add")
     public APIResponse addVehicleSpec(@Valid @RequestBody VehicleSpec vehicleSpec) {
-        System.out.println(" ");
         long modelId = vehicleSpecService.addVehicleSpec(vehicleSpec);
         return new APIResponse(true, "200", modelId);
     }

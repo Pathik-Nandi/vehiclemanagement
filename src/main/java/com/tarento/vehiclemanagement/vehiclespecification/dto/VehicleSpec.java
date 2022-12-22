@@ -12,7 +12,7 @@ import java.util.Date;
 public class VehicleSpec {
     @Id
     private long modelId;
-    @NotEmpty(message = "vehicleRPM must not be blank")
+//    @NotEmpty(message = "vehicleRPM must not be blank")
     private long vehicleRpm;
     @NotEmpty(message = "fuelCap must not be blank")
     private String fuelCap;
