@@ -1,15 +1,11 @@
 package com.tarento.vehiclemanagement.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.*;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.hibernate.annotations.ParamDef;
-import org.hibernate.annotations.SQLDelete;
 import javax.validation.constraints.Size;
-import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
@@ -110,6 +106,7 @@ public class User {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+
     }
 
     @Override

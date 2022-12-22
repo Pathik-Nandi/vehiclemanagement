@@ -17,6 +17,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 
 @Component
@@ -30,14 +31,12 @@ public class UserServiceImpl implements UserService {
     @Override
 
     public User addUser(User user) {
-
         Long aadharNum = user.getAadharNum();
-        List<User> aadharNameList = userDao.findByaadharNum(aadharNum);
-        if (!aadharNameList.isEmpty()) {
+        List<User> aadharNumList = userDao.findByaadharNum(aadharNum);
+        if (!aadharNumList.isEmpty()) {
             throw new CustomException("ERR001", "This aadhar num exists");
         }
-        else
-            userDao.save(user);
+        userDao.save(user);
         return user;
     }
 
@@ -62,6 +61,9 @@ public class UserServiceImpl implements UserService {
             userList.stream().forEach(user -> {
                 if (!user.isDeleted()) {
                     resultList.add(user);
+                }
+                else if (user.isDeleted()) {
+                    throw new ValidationException("404","User name does't exist");
                 }
             });
         }
