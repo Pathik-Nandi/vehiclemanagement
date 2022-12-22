@@ -31,8 +31,9 @@ public class VehicleSpecServiceImpl implements VehicleSpecService {
     public long addVehicleSpec(VehicleSpec vehicleSpec) {
         if (vehicleSpecDao.findById(vehicleSpec.getModelId()).isEmpty()){
             return vehicleSpecDao.save(vehicleSpec).getModelId();
+        }else {
+            throw new NotFoundException("Err07", "Vehicle already exists with this Model Id");
         }
-        throw new NotFoundException("Err07","Vehicle already exists with this Model Id");
     }
     @Override
     public long updateVehicleSpec(VehicleSpec vehicleSpec) {
